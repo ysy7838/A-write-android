@@ -1,5 +1,6 @@
 package com.example.a_write
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -29,6 +30,14 @@ class ProfileSettingActivity : AppCompatActivity(), ChooseIconDialog.OnIconSelec
         editCompleteBtn.setOnClickListener {
             finish()
         }
+
+        //탈퇴하기
+        val settingWithdrawTextView: TextView = findViewById(R.id.setting_withdraw_tv)
+        settingWithdrawTextView.setOnClickListener {
+            val intent = Intent(this, DeleteAccountActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun showChooseIconDialog() {

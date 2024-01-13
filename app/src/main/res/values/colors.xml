@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#D9D9D9</color>
+    <color name="grayB">#B5B5B5</color>
+    <color name="orange">#FF7A6C</color>
 
     <color name="your_app_background_color">#F3F0E7</color>
 \
