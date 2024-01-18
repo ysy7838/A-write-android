@@ -6,14 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ProfileSettingActivity">
 
-    <ImageView
+    <View
         android:id="@+id/profile_header_iv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/profile_header_1"
-        android:layout_marginTop="-9dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="177dp"
+        android:background="@drawable/profile_gradient_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,15 +41,15 @@
 
     <View
         android:id="@+id/setting_profile_background_iv"
-        android:layout_width="105dp"
-        android:layout_height="105dp"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-56dp"
         android:background="@drawable/profile_background_border"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_header_iv" />
+        app:layout_constraintTop_toTopOf="@+id/setting_profile_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/setting_profile_iv"
+        app:layout_constraintEnd_toEndOf="@+id/setting_profile_iv"
+        app:layout_constraintStart_toStartOf="@+id/setting_profile_iv" />
 
     <ImageView
         android:id="@+id/setting_profile_iv"
@@ -89,30 +86,17 @@
         app:layout_constraintTop_toBottomOf="@+id/setting_profile_iv" />
 
     <TextView
-        android:id="@+id/setting_profile_nickname_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="닉네임 예시"
-        android:textColor="@android:color/black"
-        android:textFontWeight="500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gray_line" />
-
-
-    <TextView
         android:id="@+id/setting_nickname_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="57.5dp"
         android:text="닉네임"
         android:textColor="@android:color/black"
         android:textFontWeight="400"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setting_profile_nickname_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/gray_line" />
 
     <EditText
         android:id="@+id/setting_nickname_input_tv"
