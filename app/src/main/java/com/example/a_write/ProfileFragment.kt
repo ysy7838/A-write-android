@@ -43,7 +43,7 @@ class ProfileFragment : Fragment() {
         }
 
         // 인기 일기글 RV
-        val topPostRVAdapter = TopPostRVAdapter(postDatas)
+        val topPostRVAdapter = TopPostRVAdapter(postDatas, requireContext())
         binding.profileTopPostsRv.adapter = topPostRVAdapter
         binding.profileTopPostsRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

@@ -3,7 +3,9 @@ package com.example.a_write
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 
 class ProfileDiaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +21,15 @@ class ProfileDiaryActivity : AppCompatActivity() {
         val previousBtn: ImageView = findViewById(R.id.previous_arrow_iv)
         previousBtn.setOnClickListener {
             finish()
+        }
+
+        //삭제하기 버튼 띄우기
+        val menuImageView: ImageView = findViewById(R.id.profile_diary_menu_iv)
+        val deleteButtonLayout: LinearLayout = findViewById(R.id.profile_diary_del_btn)
+
+        menuImageView.setOnClickListener {
+            deleteButtonLayout.visibility =
+                if (deleteButtonLayout.visibility == View.VISIBLE) View.INVISIBLE else View.VISIBLE
         }
     }
 }
