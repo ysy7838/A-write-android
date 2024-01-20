@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a_write.databinding.ItemDiaryPostBinding
 
-class HomeDiaryPostRVAdapter(private val posts: List<Post>) :
+class HomeDiaryPostRVAdapter(
+    private val posts: List<Post>,
+    private val onItemClicked: (Post) -> Unit
+) :
     RecyclerView.Adapter<HomeDiaryPostRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
@@ -19,26 +22,34 @@ class HomeDiaryPostRVAdapter(private val posts: List<Post>) :
     }
 
     override fun onBindViewHolder(holder: HomeDiaryPostRVAdapter.ViewHolder, position: Int) {
-        holder.bind(posts[position], this)
+        holder.bind(posts[position], onItemClicked)
     }
 
     class ViewHolder(val binding: ItemDiaryPostBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(post: Post, adapter: HomeDiaryPostRVAdapter) {
+        fun bind(post: Post, onItemClicked: (Post) -> Unit) {
             binding.itemDiaryPostTitleTv.text = post.title
             binding.itemDiaryPostContentTv.text = post.content
-            binding.itemDiaryHeartOnIv.visibility = if (post.isSaved) View.VISIBLE else View.GONE
-            binding.itemDiaryHeartOffIv.visibility = if (post.isSaved) View.GONE else View.VISIBLE
+            updateHeartVisibility(post)
 
-            //일기 보관 여부 관리 (서버 연결하면 코드 수정하기)
+            binding.root.setOnClickListener {
+                onItemClicked(post)
+            }
+
+            // 일기 보관 여부 관리 (서버 연결하면 코드 수정하기)
             binding.itemDiaryHeartOnIv.setOnClickListener {
                 post.isSaved = false
-                adapter.notifyItemChanged(adapterPosition)
+                updateHeartVisibility(post)
             }
 
             binding.itemDiaryHeartOffIv.setOnClickListener {
                 post.isSaved = true
-                adapter.notifyItemChanged(adapterPosition)
+                updateHeartVisibility(post)
             }
+        }
+
+        private fun updateHeartVisibility(post: Post) {
+            binding.itemDiaryHeartOnIv.visibility = if (post.isSaved) View.VISIBLE else View.GONE
+            binding.itemDiaryHeartOffIv.visibility = if (post.isSaved) View.GONE else View.VISIBLE
         }
     }
 
