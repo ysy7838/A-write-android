@@ -46,10 +46,10 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/profile_background_border"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="@+id/setting_profile_iv"
         app:layout_constraintBottom_toBottomOf="@+id/setting_profile_iv"
         app:layout_constraintEnd_toEndOf="@+id/setting_profile_iv"
-        app:layout_constraintStart_toStartOf="@+id/setting_profile_iv" />
+        app:layout_constraintStart_toStartOf="@+id/setting_profile_iv"
+        app:layout_constraintTop_toTopOf="@+id/setting_profile_iv" />
 
     <ImageView
         android:id="@+id/setting_profile_iv"
@@ -92,26 +92,25 @@
         android:layout_marginStart="34dp"
         android:layout_marginTop="57.5dp"
         android:text="닉네임"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black1"
         android:textFontWeight="400"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gray_line" />
 
     <EditText
-        android:id="@+id/setting_nickname_input_tv"
+        android:id="@+id/setting_nickname_input_etv"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:backgroundTint="@android:color/transparent"
         android:text="닉네임"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black1"
         android:textFontWeight="400"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/setting_nickname_label_tv"
         app:layout_constraintStart_toEndOf="@+id/setting_nickname_label_tv"
         app:layout_constraintTop_toTopOf="@+id/setting_nickname_label_tv" />
-
 
     <TextView
         android:id="@+id/setting_email_label_tv"
@@ -120,7 +119,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="10dp"
         android:text="이메일"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black1"
         android:textFontWeight="400"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:text="dhsudh@dheu.com"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black1"
         android:textFontWeight="400"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/setting_email_label_tv"
@@ -145,8 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginTop="21dp"
-        android:text="비밀번호 재설정"
-        android:textColor="#B5B5B5"
+        android:text="@string/setting_password_reset_tv"
+        android:textColor="@color/grayB"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting_email_label_tv" />
@@ -156,8 +155,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="로그아웃"
-        android:textColor="@android:color/black"
+        android:text="@string/setting_logout_tv"
+        android:textColor="@color/black2"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/setting_withdraw_tv"
         app:layout_constraintEnd_toEndOf="parent"
@@ -169,7 +168,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="42dp"
-        android:text="회원 탈퇴"
+        android:text="@string/setting_withdraw_tv"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

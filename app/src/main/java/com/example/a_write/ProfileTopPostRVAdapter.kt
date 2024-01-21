@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a_write.databinding.ItemTopPostBinding
 
-class TopPostRVAdapter(private val posts: List<Post>, private val context: Context) : RecyclerView.Adapter<TopPostRVAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): TopPostRVAdapter.ViewHolder {
+class ProfileTopPostRVAdapter(private val posts: List<Post>, private val context: Context) : RecyclerView.Adapter<ProfileTopPostRVAdapter.ViewHolder>() {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ProfileTopPostRVAdapter.ViewHolder {
         val binding: ItemTopPostBinding = ItemTopPostBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
 
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TopPostRVAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProfileTopPostRVAdapter.ViewHolder, position: Int) {
         holder.bind(posts[position])
 
         holder.itemView.setOnClickListener {

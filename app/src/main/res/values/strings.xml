@@ -9,6 +9,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty_title"></string>
 
+    <string name="setting_password_reset_tv"><u>비밀번호 재설정</u></string>
+    <string name="setting_logout_tv"><u>로그아웃</u></string>
+    <string name="setting_withdraw_tv"><u>회원 탈퇴</u></string>
     <string name="notification">알림</string>
     <string name="confirmation">확인</string>
     <string name="delete_account_complete_text">탈퇴가 완료되었습니다.</string>

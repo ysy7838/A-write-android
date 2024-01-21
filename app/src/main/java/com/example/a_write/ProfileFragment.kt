@@ -37,14 +37,14 @@ class ProfileFragment : Fragment() {
 
         // 데이터 리스트 생성 더미 데이터
         postDatas.apply {
-            add(Post("MELTING POINT", "ZEROBASEONE(제로베이스원)"))
-            add(Post("MELTING", "ZEROBASEONE(제로베이스원)"))
-            add(Post("POINT", "ZEROBASEONE(제로베이스원)"))
+            add(Post("제목", "내용", "애플","2024.1.18",false))
+            add(Post("MELTING", "19일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.19",false))
+            add(Post("POINT", "20일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.20",true))
         }
 
         // 인기 일기글 RV
-        val topPostRVAdapter = TopPostRVAdapter(postDatas, requireContext())
-        binding.profileTopPostsRv.adapter = topPostRVAdapter
+        val profileTopPostRVAdapter = ProfileTopPostRVAdapter(postDatas, requireContext())
+        binding.profileTopPostsRv.adapter = profileTopPostRVAdapter
         binding.profileTopPostsRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -63,6 +63,8 @@ class ProfileFragment : Fragment() {
                 override fun onDateClick(date: String) {
                     val intent = Intent(requireContext(), ProfileDiaryActivity::class.java)
                     intent.putExtra("selectedDate", date)
+                    intent.putExtra("selectedYear", year)
+                    intent.putExtra("selectedMonth", month + 1)
                     startActivity(intent)
                 }
             })

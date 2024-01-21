@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="2023.4.20"
-        android:textColor="@color/gray"
+        android:textColor="@color/black1"
         android:textSize="6sp"
         app:layout_constraintStart_toStartOf="@id/item_post_cover_img_cardView"
         app:layout_constraintTop_toBottomOf="@id/item_post_title_tv" />
