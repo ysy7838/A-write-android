@@ -12,7 +12,7 @@ import java.util.ArrayList
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private var postDatas = ArrayList<Post>()
+    private var diaryData = ArrayList<Diary>()
     private var isDataAdded = false
 
     override fun onCreateView(
@@ -24,27 +24,27 @@ class HomeFragment : Fragment() {
 
         // 데이터 리스트 생성 더미 데이터
         if (!isDataAdded) {
-            postDatas.apply {
-                add(Post("제목", "내용", "애플","2024.1.18",false))
-                add(Post("MELTING", "19일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.19",false))
-                add(Post("POINT", "20일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.20",true))
+            diaryData.apply {
+                add(Diary("제목", "내용", "애플","2024.1.18",false))
+                add(Diary("MELTING", "19일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.19",false))
+                add(Diary("POINT", "20일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.20",true))
             }
             isDataAdded = true
         }
 
         // 전체 일기글 RV
-        val homeDiaryPostRVAdapter = HomeDiaryPostRVAdapter(postDatas) { post: Post ->
-            navigateToAnotherPage(post)
+        val homePreviewDiaryRVAdapter = HomePreviewDiaryRVAdapter(diaryData) { diary: Diary ->
+            navigateToAnotherPage(diary)
         }
-        binding.homeDiaryPostsRv.adapter = homeDiaryPostRVAdapter
+        binding.homeDiaryPostsRv.adapter = homePreviewDiaryRVAdapter
         binding.homeDiaryPostsRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         return binding.root
     }
 
-    private fun navigateToAnotherPage(post: Post) {
-        val fragment = HomeDiaryDetailFragment.newInstance(post)
+    private fun navigateToAnotherPage(diary: Diary) {
+        val fragment = HomeDiaryDetailFragment.newInstance(diary)
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_frm, fragment)
         transaction.addToBackStack(null)

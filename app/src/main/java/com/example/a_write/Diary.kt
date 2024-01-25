@@ -2,7 +2,7 @@ package com.example.a_write
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Post(
+data class Diary(
     val title: String,
     val content: String,
     val user: String,
@@ -26,12 +26,12 @@ data class Post(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Post> {
-        override fun createFromParcel(parcel: Parcel): Post {
-            return Post(parcel)
+    companion object CREATOR : Parcelable.Creator<Diary> {
+        override fun createFromParcel(parcel: Parcel): Diary {
+            return Diary(parcel)
         }
 
-        override fun newArray(size: Int): Array<Post?> {
+        override fun newArray(size: Int): Array<Diary?> {
             return arrayOfNulls(size)
         }
     }

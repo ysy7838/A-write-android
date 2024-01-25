@@ -18,7 +18,6 @@ class ProfileDiaryActivity : AppCompatActivity() {
 
         Log.d("ProfileDiaryActivity", "Selected Date: $selectedYear $selectedMonth $selectedDate")
 
-
         // 이전 화면으로 돌아가기
         val previousBtn: ImageView = findViewById(R.id.previous_arrow_iv)
         previousBtn.setOnClickListener {

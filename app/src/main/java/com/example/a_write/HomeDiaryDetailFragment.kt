@@ -19,10 +19,10 @@ class HomeDiaryDetailFragment : Fragment() {
     companion object {
         private const val ARG_POST = "arg_post"
 
-        fun newInstance(post: Post): HomeDiaryDetailFragment {
+        fun newInstance(diary: Diary): HomeDiaryDetailFragment {
             val fragment = HomeDiaryDetailFragment()
             val bundle = Bundle().apply {
-                putParcelable(ARG_POST, post)
+                putParcelable(ARG_POST, diary)
             }
             fragment.arguments = bundle
             return fragment
@@ -37,9 +37,9 @@ class HomeDiaryDetailFragment : Fragment() {
     ): View? {
         binding = FragmentHomeDiaryDetailBinding.inflate(inflater, container, false)
 
-        val post: Post? = arguments?.getParcelable(ARG_POST) as? Post
+        val diary: Diary? = arguments?.getParcelable(ARG_POST) as? Diary
 
-        post?.let {
+        diary?.let {
             Log.d("일기 데이터", it.toString())
             binding.diaryDetailTitleTv.text = it.title
             binding.diaryDetailContentTv.text = it.content

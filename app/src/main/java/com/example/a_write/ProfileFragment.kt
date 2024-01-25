@@ -20,7 +20,7 @@ import androidx.core.content.ContextCompat
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private var postDatas = ArrayList<Post>()
+    private var diaryData = ArrayList<Diary>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,14 +36,14 @@ class ProfileFragment : Fragment() {
         }
 
         // 데이터 리스트 생성 더미 데이터
-        postDatas.apply {
-            add(Post("제목", "내용", "애플","2024.1.18",false))
-            add(Post("MELTING", "19일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.19",false))
-            add(Post("POINT", "20일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.20",true))
+        diaryData.apply {
+            add(Diary("제목", "내용", "애플","2024.1.18",false))
+            add(Diary("MELTING", "19일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.19",false))
+            add(Diary("POINT", "20일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.20",true))
         }
 
         // 인기 일기글 RV
-        val profileTopPostRVAdapter = ProfileTopPostRVAdapter(postDatas, requireContext())
+        val profileTopPostRVAdapter = ProfileTopDiaryRVAdapter(diaryData, requireContext())
         binding.profileTopPostsRv.adapter = profileTopPostRVAdapter
         binding.profileTopPostsRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

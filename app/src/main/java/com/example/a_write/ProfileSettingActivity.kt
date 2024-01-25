@@ -9,15 +9,11 @@ import android.widget.TextView
 
 class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIconSelectedListener {
     private lateinit var profileImageView: ImageView
-    var originalProfileId: Int = 1
+    private var originalProfileId: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_setting)
-
-        val settingPasswordResetTextView = findViewById<TextView>(R.id.setting_password_reset_tv)
-        settingPasswordResetTextView.paintFlags = settingPasswordResetTextView.paintFlags
-
 
         // 프로필 클릭 시 프로필 선택 다이얼로그 실행
         profileImageView = findViewById(R.id.setting_profile_iv)
