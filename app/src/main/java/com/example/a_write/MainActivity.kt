@@ -16,16 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initBottomNavigation()
-
-        //테스트
-        // DiaryFragment 인스턴스를 생성합니다.
-        val calendarFragment = ThemeFragment()
-
-        // FragmentManager를 사용하여 DiaryFragment를 액티비티에 추가하거나 교체합니다.
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, calendarFragment) // 'fragment_container'는 DiaryFragment를 표시할 레이아웃의 id입니다. 이 id는 activity_main.xml에서 정의해야 합니다.
-            .commit()
-
     }
 
     private fun initBottomNavigation(){
