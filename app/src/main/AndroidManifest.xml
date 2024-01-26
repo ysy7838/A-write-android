@@ -13,13 +13,19 @@
         android:theme="@style/Theme.AWrite"
         tools:targetApi="31">
         <activity
-            android:name=".CalendarActivity"
-            android:exported="false" />
-        <activity
             android:name=".WriteActivity"
             android:exported="false" />
         <activity
             android:name=".login"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileDiaryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DeleteAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileSettingActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
