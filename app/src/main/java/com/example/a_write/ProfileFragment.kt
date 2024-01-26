@@ -25,7 +25,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         // 환경설정 아이콘 클릭
@@ -37,9 +37,9 @@ class ProfileFragment : Fragment() {
 
         // 데이터 리스트 생성 더미 데이터
         diaryData.apply {
-            add(Diary("제목", "내용", "애플","2024.1.18",false))
-            add(Diary("MELTING", "19일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.19",false))
-            add(Diary("POINT", "20일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.20",true))
+            add(Diary("제목", "내용", 4, "애플", "2024.1.18", false))
+            add(Diary("MELTING", "19일 일기 내용", 1, "ZEROBASEONE(제로베이스원)", "2024.1.19", false))
+            add(Diary("POINT", "20일 일기 내용", 3, "ZEROBASEONE(제로베이스원)", "2024.1.20", true))
         }
 
         // 인기 일기글 RV
