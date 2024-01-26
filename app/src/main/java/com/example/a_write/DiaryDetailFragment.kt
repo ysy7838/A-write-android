@@ -14,13 +14,13 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.a_write.databinding.FragmentHomeDiaryDetailBinding
 
-class HomeDiaryDetailFragment : Fragment() {
+class DiaryDetailFragment : Fragment() {
 
     companion object {
         private const val ARG_POST = "arg_post"
 
-        fun newInstance(diary: Diary): HomeDiaryDetailFragment {
-            val fragment = HomeDiaryDetailFragment()
+        fun newInstance(diary: Diary): DiaryDetailFragment {
+            val fragment = DiaryDetailFragment()
             val bundle = Bundle().apply {
                 putParcelable(ARG_POST, diary)
             }
