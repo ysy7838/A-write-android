@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToAnotherPage(diary: Diary) {
-        val fragment = HomeDiaryDetailFragment.newInstance(diary)
+        val fragment = DiaryDetailFragment.newInstance(diary)
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_frm, fragment)
         transaction.addToBackStack(null)

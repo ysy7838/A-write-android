@@ -6,24 +6,32 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a_write.databinding.ItemPreviewDiaryBinding
 
-class HeartPreviewDiaryRVAdapter(private val diaries: MutableList<Diary>) :
+class HeartPreviewDiaryRVAdapter(
+    private val diaries: MutableList<Diary>,
+    private val onItemClicked: (Diary) -> Unit
+) :
     RecyclerView.Adapter<HeartPreviewDiaryRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
     ): HeartPreviewDiaryRVAdapter.ViewHolder {
         val binding: ItemPreviewDiaryBinding =
-            ItemPreviewDiaryBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+            ItemPreviewDiaryBinding.inflate(
+                LayoutInflater.from(viewGroup.context),
+                viewGroup,
+                false
+            )
 
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: HeartPreviewDiaryRVAdapter.ViewHolder, position: Int) {
-        holder.bind(diaries[position], this)
+        holder.bind(diaries[position], this, onItemClicked)
     }
 
-    class ViewHolder(private val binding: ItemPreviewDiaryBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(diary: Diary, adapter: HeartPreviewDiaryRVAdapter) {
+    class ViewHolder(private val binding: ItemPreviewDiaryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(diary: Diary, adapter: HeartPreviewDiaryRVAdapter, onItemClicked: (Diary) -> Unit) {
             binding.itemDiaryPostTitleTv.text = diary.title
             binding.itemDiaryPostContentTv.text = diary.content
             binding.itemDiaryHeartOnIv.visibility = if (diary.isSaved) View.VISIBLE else View.GONE
@@ -32,6 +40,10 @@ class HeartPreviewDiaryRVAdapter(private val diaries: MutableList<Diary>) :
             binding.itemDiaryHeartOnIv.setOnClickListener {
                 val position = adapter.removePost(diary)
                 adapter.notifyItemRemoved(position)
+            }
+
+            binding.root.setOnClickListener {
+                onItemClicked(diary)
             }
         }
     }
