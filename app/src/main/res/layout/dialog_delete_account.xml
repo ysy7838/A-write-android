@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="270dp"
+    android:background="@color/gray">
+
+    <ImageView
+        android:id="@+id/previous_arrow_iv"
+        android:layout_width="9dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="28dp"
+        android:clipToOutline="true"
+        android:src="@drawable/ic_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/delete_confirm_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="30dp"
+        android:text="확인"
+        android:textColor="@color/black"
+        android:textFontWeight="600"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/previous_arrow_iv" />
+
+    <TextView
+        android:id="@+id/delete_confirm_description_tv"
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="탈퇴하시겠습니까? 모든 프로필, 활동 내역이 삭제되며 복구할 수 없습니다."
+        android:textColor="@color/black"
+        android:textFontWeight="600"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/delete_confirm_tv"
+        app:layout_constraintTop_toBottomOf="@+id/delete_confirm_tv" />
+
+    <TextView
+        android:id="@+id/withdraw_no_btn"
+        android:layout_width="79dp"
+        android:layout_height="37dp"
+        android:background="@drawable/delete_account_white_btn"
+        android:gravity="center"
+        android:text="아니오"
+        android:textColor="@color/black"
+        android:layout_marginEnd="9dp"
+        android:textFontWeight="600"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/withdraw_yes_btn"
+        app:layout_constraintEnd_toStartOf="@+id/withdraw_yes_btn"
+        app:layout_constraintTop_toTopOf="@+id/withdraw_yes_btn" />
+
+    <TextView
+        android:id="@+id/withdraw_yes_btn"
+        android:layout_width="49dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/delete_account_withdraw_btn"
+        android:gravity="center"
+        android:text="예"
+        android:textColor="@color/white"
+        android:textFontWeight="600"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
