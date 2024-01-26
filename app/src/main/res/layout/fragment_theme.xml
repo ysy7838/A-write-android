@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="100dp"
+    android:padding="25dp"
+    tools:context=".HomeFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="어떤 테마를 좋아하세요?"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:text="4개의 테마 중 하나를 선택해주세요!"
+        android:textSize="20sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvThemes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/subtitle"
+        android:layout_centerInParent="true"
+        android:clipToPadding="false"
+        android:foregroundGravity="center"
+        android:overScrollMode="never" />
+
+</RelativeLayout>
