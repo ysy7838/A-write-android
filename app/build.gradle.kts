@@ -36,6 +36,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -52,4 +55,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    //테마 선택 애니메이션을 위한 의존성 추가
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
 }
