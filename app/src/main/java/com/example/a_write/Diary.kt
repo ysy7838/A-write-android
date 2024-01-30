@@ -5,16 +5,20 @@ import android.os.Parcelable
 data class Diary(
     val title: String,
     val content: String,
+    val img: String,
     val theme: Int,
     val user: String,
-    val time: String,
+    var profile: Int,
+    val date: String,
     var isSaved: Boolean,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.readInt() ?: 0,
         parcel.readString() ?: "",
+        parcel.readInt() ?: 1,
         parcel.readString() ?: "",
         parcel.readByte() != 0.toByte()
     )

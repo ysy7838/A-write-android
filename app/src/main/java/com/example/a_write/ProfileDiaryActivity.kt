@@ -7,12 +7,23 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 
 class ProfileDiaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_diary)
+
+        // 임시 데이터 바인딩
+        val titleTextView: TextView = findViewById(R.id.profile_diary_title_tv)
+        val contentTextView: TextView = findViewById(R.id.profile_diary_content_tv)
+        val diaryImageView: ImageView = findViewById(R.id.profile_diary_img_iv)
+
+        titleTextView.text = intent.getStringExtra("diary_title")
+        contentTextView.text = intent.getStringExtra("diary_content")
+        Picasso.get().load(intent.getStringExtra("diary_img")).into(diaryImageView)
 
         // 선택한 날짜 확인
         val selectedDate = intent.getStringExtra("selectedDate")

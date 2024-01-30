@@ -34,6 +34,7 @@ class HeartPreviewDiaryRVAdapter(
         fun bind(diary: Diary, adapter: HeartPreviewDiaryRVAdapter, onItemClicked: (Diary) -> Unit) {
             binding.itemDiaryPostTitleTv.text = diary.title
             binding.itemDiaryPostContentTv.text = diary.content
+            binding.itemDiaryProfileIv.setImageResource(getProfileImageResourceId(diary.profile))
             binding.itemDiaryHeartOnIv.visibility = if (diary.isSaved) View.VISIBLE else View.GONE
             binding.itemDiaryHeartOffIv.visibility = if (diary.isSaved) View.GONE else View.VISIBLE
 

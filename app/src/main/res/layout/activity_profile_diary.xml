@@ -71,6 +71,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/profile_del_img_iv"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
@@ -91,7 +92,7 @@
 
         <TextView
             android:id="@+id/profile_diary_content_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="30dp"
@@ -105,8 +106,7 @@
         <ImageView
             android:id="@+id/profile_diary_img_iv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_height="356dp"
             android:layout_marginTop="48dp"
             android:scaleType="centerCrop"
             android:src="@drawable/profile_1"
@@ -115,4 +115,5 @@
             app:layout_constraintTop_toBottomOf="@+id/profile_diary_content_tv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
