@@ -1,9 +1,14 @@
 package com.example.a_write
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -65,5 +70,23 @@ class ProfileDiaryActivity : AppCompatActivity() {
                 scrollView.setBackgroundColor(ContextCompat.getColor(this, R.color.your_app_background_color))
             }
         }
+
+        // 이미지 전체보기 다이얼로그
+        val profileDiaryImageView = findViewById<ImageView>(R.id.profile_diary_img_iv)
+        profileDiaryImageView.setOnClickListener {
+            showImageDialog(profileDiaryImageView.drawable)
+        }
+    }
+
+    private fun showImageDialog(drawable: Drawable) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_diary_detail_img)
+
+        val imageView = dialog.findViewById<ImageView>(R.id.diary_detail_dialog_iv)
+        imageView.setImageDrawable(drawable)
+        imageView.setOnClickListener { dialog.dismiss() }
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
     }
 }
