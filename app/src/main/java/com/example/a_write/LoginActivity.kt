@@ -1,0 +1,86 @@
+package com.example.a_write
+
+import android.content.Intent
+import android.graphics.Paint
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import com.example.a_write.databinding.ActivityLoginBinding
+
+class LoginActivity : AppCompatActivity(), LoginView {
+
+    lateinit var binding: ActivityLoginBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.loginPwTv.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding.loginSignTv.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
+        button()
+
+    }
+
+    private fun button(){
+        binding.loginBtn.setOnClickListener {
+
+            //login
+            val authService = AuthService()
+            authService.setLoginView(this)
+
+            authService.login(getUser())
+
+            //startmain
+            val intent = Intent(this,MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+
+        }
+
+        binding.loginSignTv.setOnClickListener{
+            val intent = Intent(this,SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.loginPwTv.setOnClickListener{
+            val intent = Intent(this,ResetActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun startMainActivity(){
+//        val intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
+        Log.d("SIGNUP/SUCCESS", "")
+    }
+
+
+    override fun onLoginSuccess(code: Int) {
+        startMainActivity()
+    }
+
+    override fun onLoginFailure() {
+        TODO("Not yet implemented")
+    }
+
+    //login token
+    private fun saveJwt2(jwt: String) {
+        val spf = getSharedPreferences("auth2" , MODE_PRIVATE)
+        val editor = spf.edit()
+
+        editor.putString("jwt", jwt)
+        editor.apply()
+    }
+
+    private fun getUser(): UserLogin {
+
+        val id :String =  binding.idInput.text.toString()
+        val password :String =  binding.passwordInput.text.toString()
+
+        return UserLogin(id, password)
+    }
+}

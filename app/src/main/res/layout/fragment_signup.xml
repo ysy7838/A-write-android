@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/signup_close_iv"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="18sp"
+            android:layout_marginStart="18sp"
+            android:src="@drawable/ic_x"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/signup_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+
+            android:textSize="22sp"
+            android:textColor="@color/black"
+
+            android:text="이메일로 회원가입"
+            android:layout_marginTop="65sp"
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/signup_email_et"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/background_edit_text"
+
+
+            android:hint="이메일"
+            android:textColorHint="@color/gray"
+
+            android:inputType="text"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+
+            android:paddingStart="15dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signup_title_tv" />
+
+        <EditText
+            android:id="@+id/signup_password_et"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/background_edit_text"
+
+
+            android:hint="비밀번호"
+            android:textColorHint="@color/gray"
+
+            android:inputType="text"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+
+            android:paddingStart="15dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signup_email_et" />
+
+        <EditText
+            android:id="@+id/signup_nickname_et"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/background_edit_text"
+
+
+            android:hint="닉네임"
+            android:textColorHint="@color/gray"
+
+            android:inputType="text"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+
+            android:paddingStart="15dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signup_password_et" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            android:id="@+id/checkbox_1_lo"
+
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+
+            android:layout_marginTop="20dp"
+
+            app:layout_constraintStart_toStartOf="@id/signup_nickname_et"
+            app:layout_constraintTop_toBottomOf="@id/signup_nickname_et">
+
+
+
+            <CheckBox
+                android:id="@+id/myCheckBox_1_cb"
+                android:layout_width="18sp"
+                android:layout_height="18sp"
+
+                android:button="@null"
+                android:background="@drawable/checkbox_selector"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/mycheckBox_1_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="10sp"
+                android:textColor="@color/black"
+
+                android:text="만 14세 이상입니다."
+                android:layout_marginStart="10dp"
+
+                app:layout_constraintStart_toEndOf="@id/myCheckBox_1_cb"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            android:id="@+id/checkbox_2_lo"
+
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+
+            android:layout_marginTop="20dp"
+
+            app:layout_constraintStart_toStartOf="@id/signup_nickname_et"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_1_lo">
+
+
+
+            <CheckBox
+                android:id="@+id/myCheckBox_2_cb"
+                android:layout_width="18sp"
+                android:layout_height="18sp"
+
+                android:button="@null"
+                android:background="@drawable/checkbox_selector"
+
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/mycheckBox_2_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="10sp"
+                android:textColor="@color/black"
+
+                android:text="모든 서비스 약관에 동의합니다."
+                android:layout_marginStart="10dp"
+
+                app:layout_constraintStart_toEndOf="@id/myCheckBox_2_cb"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            android:id="@+id/checkbox_3_lo"
+
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+
+            android:layout_marginTop="20dp"
+
+            app:layout_constraintStart_toStartOf="@id/signup_nickname_et"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_2_lo">
+
+
+
+            <CheckBox
+                android:id="@+id/myCheckBox_3_cb"
+                android:layout_width="18sp"
+                android:layout_height="18sp"
+
+                android:button="@null"
+                android:background="@drawable/checkbox_selector"
+
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/mycheckBox_3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="10sp"
+                android:textColor="@color/black"
+
+                android:text="개인정보 수집 및 이용에 동의합니다."
+                android:layout_marginStart="10dp"
+
+                app:layout_constraintStart_toEndOf="@id/myCheckBox_3_cb"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/signup_button_tv"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+
+            android:textSize="22sp"
+            android:textColor="@color/black"
+
+            android:text="회원가입"
+            android:gravity="center"
+
+            android:background="@drawable/background_text"
+            android:backgroundTint="@color/gray8"
+
+
+            android:layout_marginBottom="20sp"
+            android:textStyle="bold"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
