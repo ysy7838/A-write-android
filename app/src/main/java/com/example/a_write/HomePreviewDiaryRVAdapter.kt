@@ -29,7 +29,8 @@ class HomePreviewDiaryRVAdapter(
         fun bind(diary: Diary, onItemClicked: (Diary) -> Unit) {
             binding.itemDiaryPostTitleTv.text = diary.title
             binding.itemDiaryPostContentTv.text = diary.content
-            updateHeartVisibility(diary)
+            binding.itemDiaryProfileIv.setImageResource(getProfileImageResourceId(diary.profile))
+            updateHeartVisibility(diary.isSaved)
 
             binding.root.setOnClickListener {
                 onItemClicked(diary)
@@ -38,18 +39,18 @@ class HomePreviewDiaryRVAdapter(
             // 일기 보관 여부 관리 (서버 연결하면 코드 수정하기)
             binding.itemDiaryHeartOnIv.setOnClickListener {
                 diary.isSaved = false
-                updateHeartVisibility(diary)
+                updateHeartVisibility(false)
             }
 
             binding.itemDiaryHeartOffIv.setOnClickListener {
                 diary.isSaved = true
-                updateHeartVisibility(diary)
+                updateHeartVisibility(true)
             }
         }
 
-        private fun updateHeartVisibility(diary: Diary) {
-            binding.itemDiaryHeartOnIv.visibility = if (diary.isSaved) View.VISIBLE else View.GONE
-            binding.itemDiaryHeartOffIv.visibility = if (diary.isSaved) View.GONE else View.VISIBLE
+        private fun updateHeartVisibility(isSaved: Boolean) {
+            binding.itemDiaryHeartOnIv.visibility = if (isSaved) View.VISIBLE else View.GONE
+            binding.itemDiaryHeartOffIv.visibility = if (isSaved) View.GONE else View.VISIBLE
         }
     }
 

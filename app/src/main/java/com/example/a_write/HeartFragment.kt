@@ -24,9 +24,7 @@ class HeartFragment : Fragment() {
         // 데이터 리스트 생성 더미 데이터
         if (!isDataAdded) {
             diaryData.apply {
-                add(Diary("제목", "내용", "애플", "2024.1.18", true))
-                add(Diary("MELTING", "19일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.19", true))
-                add(Diary("POINT", "20일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.20", true))
+                add(Diary("여행 2일차", "1월 20일. 확실히, 여행은 단순한 관광 이상이다. 여행은 삶에 관한 상념들에 계속해서 일어나는 깊고, 영구적인 변화이다.","https://images.unsplash.com/photo-1647891938250-954addeb9c51?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 3, "애플",2, "2024-01-20", true))
             }
             isDataAdded = true
         }
