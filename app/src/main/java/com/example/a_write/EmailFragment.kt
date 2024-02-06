@@ -27,10 +27,10 @@ class EmailFragment :Fragment(), SignUpView{
             binding.emailExplain5Tv.visibility=View.VISIBLE
 
             //send email
-            val authService = AuthService()
-            authService.setSignUpView(this)
-
-            authService.signUp(getUser())
+//            val authService = AuthService()
+//            authService.setSignUpView(this)
+//
+//            authService.signUp(getUser())
 
         }
 

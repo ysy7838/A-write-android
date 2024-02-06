@@ -31,10 +31,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
             startMainActivity()
 
             //login
-            val authService = AuthService()
-            authService.setLoginView(this)
-
-            authService.login(getUser())
+//            val authService = AuthService()
+//            authService.setLoginView(this)
+//
+//            authService.login(getUser())
 
         }
 

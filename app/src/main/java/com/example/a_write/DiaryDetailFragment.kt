@@ -12,7 +12,8 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.example.a_write.databinding.FragmentHomeDiaryDetailBinding
+import com.example.a_write.databinding.FragmentDiaryDetailBinding
+import com.squareup.picasso.Picasso
 
 class DiaryDetailFragment : Fragment() {
 
@@ -29,13 +30,13 @@ class DiaryDetailFragment : Fragment() {
         }
     }
 
-    private lateinit var binding: FragmentHomeDiaryDetailBinding
+    private lateinit var binding: FragmentDiaryDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHomeDiaryDetailBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentDiaryDetailBinding.inflate(inflater, container, false)
 
         val diary: Diary? = arguments?.getParcelable(ARG_POST) as? Diary
 
@@ -43,8 +44,11 @@ class DiaryDetailFragment : Fragment() {
             Log.d("일기 데이터", it.toString())
             binding.diaryDetailTitleTv.text = it.title
             binding.diaryDetailContentTv.text = it.content
+            Picasso.get().load(it.img).into(binding.diaryDetailImgIv)
             binding.diaryDetailNicknameTv.text = it.user
-        } ?: Log.d("일기 데이터", "Post is null")
+            binding.diaryDetailProfileIv.setImageResource(getProfileImageResourceId(it.profile))
+            updateHeartVisibility(it.isSaved)
+        } ?: Log.d("일기 데이터", "일기를 불러오는 데 실패했습니다.")
 
         // 이전 버튼 선택
         val previousArrowImageView: ImageView = binding.previousArrowIv
@@ -63,17 +67,25 @@ class DiaryDetailFragment : Fragment() {
         val heartOnImageView: ImageView = binding.diaryDetailHeartOnIv
 
         heartOffImageView.setOnClickListener {
-            heartOffImageView.visibility = View.GONE
-            heartOnImageView.visibility = View.VISIBLE
+            diary?.let {
+                it.isSaved = true
+                updateHeartVisibility(true)
+            }
         }
 
         heartOnImageView.setOnClickListener {
-            heartOnImageView.visibility = View.GONE
-            heartOffImageView.visibility = View.VISIBLE
+            diary?.let {
+                it.isSaved = false
+                updateHeartVisibility(false)
+            }
         }
 
-
         return binding.root
+    }
+
+    private fun updateHeartVisibility(isSaved: Boolean) {
+        binding.diaryDetailHeartOnIv.visibility = if (isSaved) View.VISIBLE else View.GONE
+        binding.diaryDetailHeartOffIv.visibility = if (isSaved) View.GONE else View.VISIBLE
     }
 
     private fun showImageDialog(drawable: Drawable) {

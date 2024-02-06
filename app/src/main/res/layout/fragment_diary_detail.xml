@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/previous_arrow_iv"
@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:text="일기 제목"
             android:textColor="@color/black2"
-            android:textSize="18sp"
             android:textFontWeight="600"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/home_diary_gray_top_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,53 +46,70 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/diary_detail_profile_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="21dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/profile_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_diary_gray_top_line" />
-
-        <TextView
-            android:id="@+id/diary_detail_nickname_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="애플"
-            android:textColor="@color/black2"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/diary_detail_profile_iv"
-            app:layout_constraintStart_toEndOf="@+id/diary_detail_profile_iv"
-            app:layout_constraintTop_toTopOf="@+id/diary_detail_profile_iv" />
-
-        <TextView
-            android:id="@+id/diary_detail_content_tv"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:maxLines="8"
-            android:text="1월 20일. 애플 님의 일기입니다. ABCabc123"
-            android:textColor="@color/black2"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/diary_detail_profile_iv"
-            app:layout_constraintTop_toBottomOf="@+id/diary_detail_profile_iv" />
-
-        <ImageView
-            android:id="@+id/diary_detail_img_iv"
+        <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="48dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/profile_1"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/item_diary_gray_divider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/diary_detail_content_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/home_diary_gray_top_line">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/diary_detail_profile_iv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="21dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/diary_detail_nickname_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="애플"
+                    android:textColor="@color/black2"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/diary_detail_profile_iv"
+                    app:layout_constraintStart_toEndOf="@+id/diary_detail_profile_iv"
+                    app:layout_constraintTop_toTopOf="@+id/diary_detail_profile_iv" />
+
+                <TextView
+                    android:id="@+id/diary_detail_content_tv"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="8"
+                    android:text="1월 20일. 애플 님의 일기입니다. ABCabc123"
+                    android:textColor="@color/black2"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/diary_detail_profile_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/diary_detail_profile_iv" />
+
+                <ImageView
+                    android:id="@+id/diary_detail_img_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="356dp"
+                    android:layout_marginTop="48dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/diary_detail_content_tv" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <ImageView
             android:id="@+id/diary_detail_heart_off_iv"

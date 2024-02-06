@@ -17,8 +17,15 @@
     <color name="orange">#FF7A6C</color>
     <color name="deep_red">#AE0909</color>
 
+
     <color name="blue">#587EDA</color>
     <color name="red">#FF7A6C</color>
+
+    <color name="theme_blue">#AAAFD8</color>
+    <color name="theme_green">#D8F4D1</color>
+    <color name="theme_yellow">#F5EAA3</color>
+    <color name="theme_red">#F6CCC0</color>
+
 
     <color name="your_app_background_color">#F3F0E7</color>
 
