@@ -2,12 +2,10 @@ package com.example.a_write
 
 import android.content.Intent
 import android.graphics.Paint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.a_write.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -30,7 +28,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         binding.loginBtn.setOnClickListener {
 
             //시연용
-            //startMainActivity()
+            startMainActivity()
 
             //login
             val authService = AuthService()
