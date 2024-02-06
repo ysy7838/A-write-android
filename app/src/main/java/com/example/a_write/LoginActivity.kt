@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.example.a_write.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -28,16 +29,14 @@ class LoginActivity : AppCompatActivity(), LoginView {
     private fun button(){
         binding.loginBtn.setOnClickListener {
 
+            //시연용
+            //startMainActivity()
+
             //login
             val authService = AuthService()
             authService.setLoginView(this)
 
             authService.login(getUser())
-
-            //startmain
-            val intent = Intent(this,MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
 
         }
 
@@ -53,18 +52,21 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     private fun startMainActivity(){
-//        val intent = Intent(this, MainActivity::class.java)
-//        startActivity(intent)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
         Log.d("SIGNUP/SUCCESS", "")
     }
 
 
-    override fun onLoginSuccess(code: Int) {
+    override fun onLoginSuccess() {
         startMainActivity()
     }
 
-    override fun onLoginFailure() {
-        TODO("Not yet implemented")
+    override fun onLoginFailure(message:String) {
+        Log.d("SIGNUP", "fail")
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
     }
 
     //login token

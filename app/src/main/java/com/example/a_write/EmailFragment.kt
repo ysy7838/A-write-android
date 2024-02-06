@@ -49,9 +49,11 @@ class EmailFragment :Fragment(), SignUpView{
         Toast.makeText(activity, "signup 성공", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onSignUpFailure() {
+
+
+    override fun onSignUpFailure(message: String) {
         Log.d("SIGNUP", "fail")
-        Toast.makeText(activity, "signup 실패", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
 

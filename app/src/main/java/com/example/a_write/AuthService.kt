@@ -22,12 +22,13 @@ class AuthService {
 
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
         authService.signUp(user).enqueue(object: retrofit2.Callback<AuthResponse>{
+
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 Log.d("SIGNUP/SUCCESS", response.toString())
                 val resp: AuthResponse = response.body()!!
                 when(resp.code){
                     "COMMON200"->signUpView.onSignUpSuccess()
-                    else->signUpView.onSignUpFailure()
+                    else->signUpView.onSignUpFailure(resp.message)
                 }
 
             }
@@ -50,18 +51,16 @@ class AuthService {
         loginService.login(user).enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
 
+                Log.d("LOGIN/SUCCESS", response.toString())
 
-                //if
-                if (response.isSuccessful && response.code() == 200) {
-                    Log.d("LOGIN/SUCCESS", response.toString())
+                val resp: AuthResponse = response.body()!!
 
-                    val resp: AuthResponse = response.body()!!
-
-                    when (val code = resp.code) {
-                        "COMMON200" -> loginView.onLoginSuccess(200)//추후 변경예정
-                        else -> loginView.onLoginFailure()
-                    }
+                when (resp.code) {
+                    "COMMON200" -> loginView.onLoginSuccess()//추후 변경
+                    else -> loginView.onLoginFailure(resp.message)
                 }
+
+
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {

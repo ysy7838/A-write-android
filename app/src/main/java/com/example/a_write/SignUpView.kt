@@ -3,6 +3,6 @@ package com.example.a_write
 
 interface SignUpView {
     fun onSignUpSuccess()
-    fun onSignUpFailure()
+    fun onSignUpFailure(message: String)
 
 }

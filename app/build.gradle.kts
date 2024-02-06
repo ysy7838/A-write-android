@@ -72,4 +72,7 @@ dependencies {
     //okHttp
     implementation ("com.squareup.okhttp3:okhttp:4.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+    //splashscreen
+    implementation ("androidx.core:core-splashscreen:1.1.0-alpha02")
 }

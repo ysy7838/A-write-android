@@ -2,15 +2,24 @@ package com.example.a_write
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
+//import org.devio.rn.splashscreen.SplashScreen
+
 
 class SplashActivity :AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
+
+//        installSplashScreen()
+//
+//        // Showing the React Native splash screen
+//        SplashScreen.show(this, true)
+//
+//        // Call to the superclass' onCreate method
+//        super.onCreate(null)
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_splash)
 
         val motionLayout = findViewById<MotionLayout>(R.id.motionLayout)
