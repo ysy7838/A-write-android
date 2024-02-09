@@ -59,14 +59,12 @@ class DeleteAccountDialog(context: Context, private val listener: OnBtnSelectedL
     }
 
     private fun handleConfirmationButtonClick() {
-        listener.onBtnSelected(true)
+        listener.onBtnSelected()
         dismiss()
-
-        //로그인 화면으로 이동
     }
 
     interface OnBtnSelectedListener {
-        fun onBtnSelected(clickedBtn: Boolean)
+        fun onBtnSelected()
     }
 }
 
