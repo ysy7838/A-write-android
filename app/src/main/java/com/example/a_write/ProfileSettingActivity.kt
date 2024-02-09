@@ -40,7 +40,14 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
             finish()
         }
 
-        // 탈퇴하기
+        // 비밀번호 재설정하기 (ResetActivity 실행)
+        val settingPasswordResetTextView: TextView = findViewById(R.id.setting_password_reset_tv)
+        settingPasswordResetTextView.setOnClickListener {
+            val resetIntent = Intent(this, ResetActivity::class.java)
+            startActivity(resetIntent)
+        }
+
+        // 탈퇴하기 (DeleteAccountActivity 실행)
         val settingWithdrawTextView: TextView = findViewById(R.id.setting_withdraw_tv)
         settingWithdrawTextView.setOnClickListener {
             val intent = Intent(this, DeleteAccountActivity::class.java)

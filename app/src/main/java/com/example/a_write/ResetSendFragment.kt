@@ -30,20 +30,12 @@ class ResetSendFragment : Fragment() {
         drawable?.setBounds(0, 0, 9.dpToPx(requireContext()), 16.dpToPx(requireContext())) // 크기 지정
         button.setCompoundDrawables(drawable, null, null, null)
 
-
-
-
-
         binding.resetCloseIv.setOnClickListener {
-            val intent = Intent(activity, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            activity?.finish()
         }
 
         binding.resetBackBt.setOnClickListener {
-            val intent = Intent(activity, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            activity?.finish()
         }
 
 
