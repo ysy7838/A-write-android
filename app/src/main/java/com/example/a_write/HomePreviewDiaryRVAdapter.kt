@@ -4,13 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a_write.database.DiaryResult
+//import com.example.a_write.api.DiaryResult
+import com.example.a_write.api.DiaryService
 import com.example.a_write.databinding.ItemPreviewDiaryBinding
 
 class HomePreviewDiaryRVAdapter(
-    private val diaries: List<Diary>,
-    private val onItemClicked: (Diary) -> Unit
+    private val onItemClicked: (DiaryResult) -> Unit
 ) :
     RecyclerView.Adapter<HomePreviewDiaryRVAdapter.ViewHolder>() {
+
+    private val diaries = mutableListOf<DiaryResult>()
+
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
@@ -25,26 +30,40 @@ class HomePreviewDiaryRVAdapter(
         holder.bind(diaries[position], onItemClicked)
     }
 
+    override fun getItemCount(): Int {
+        return diaries.size
+    }
+
+    fun submitList(list: MutableList<DiaryResult>) {
+        diaries.clear()
+        diaries.addAll(list)
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(private val binding: ItemPreviewDiaryBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(diary: Diary, onItemClicked: (Diary) -> Unit) {
+        fun bind(diary: DiaryResult, onItemClicked: (DiaryResult) -> Unit) {
             binding.itemDiaryPostTitleTv.text = diary.title
             binding.itemDiaryPostContentTv.text = diary.content
-            binding.itemDiaryProfileIv.setImageResource(getProfileImageResourceId(diary.profile))
-            updateHeartVisibility(diary.isSaved)
+            binding.itemDiaryProfileIv.setImageResource(getProfileImageResourceId(diary.authorProfile))
+            updateHeartVisibility(diary.heartby)
 
             binding.root.setOnClickListener {
                 onItemClicked(diary)
             }
 
-            // 일기 보관 여부 관리 (서버 연결하면 코드 수정하기)
+            val diaryService = DiaryService()
+
+            // 일기 보관 여부 관리
             binding.itemDiaryHeartOnIv.setOnClickListener {
-                diary.isSaved = false
+                diary.heartby = false
                 updateHeartVisibility(false)
+                diaryService.deleteDiaryHeart(diary.diaryId)
             }
 
             binding.itemDiaryHeartOffIv.setOnClickListener {
-                diary.isSaved = true
+                diary.heartby = true
                 updateHeartVisibility(true)
+                diaryService.postDiaryHeart(diary.diaryId)
             }
         }
 
@@ -52,10 +71,6 @@ class HomePreviewDiaryRVAdapter(
             binding.itemDiaryHeartOnIv.visibility = if (isSaved) View.VISIBLE else View.GONE
             binding.itemDiaryHeartOffIv.visibility = if (isSaved) View.GONE else View.VISIBLE
         }
-    }
-
-    override fun getItemCount(): Int {
-        return diaries.size
     }
 
 }

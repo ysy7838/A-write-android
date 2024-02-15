@@ -21,13 +21,9 @@ class ResetSendFragment : Fragment() {
     ): View? {
         binding = FragmentResetSendBinding.inflate(inflater, container, false)
 
-
         binding.resetCloseIv.setOnClickListener {
-            val intent = Intent(activity, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            activity?.finish()
         }
-
 
         binding.resetEmailSendBt.setOnClickListener {
             binding.resetEmailSendBt.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.grayA))

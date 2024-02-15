@@ -14,28 +14,39 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.a_write.api.MyPageCalenderDiaryListener
+import com.example.a_write.api.MyPageDiary
+import com.example.a_write.api.MyPageService
 import com.squareup.picasso.Picasso
 
-class ProfileDiaryActivity : AppCompatActivity() {
+class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
+    private val myPageService = MyPageService()
+    private var diaryId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_diary)
 
-        // 임시 데이터 바인딩
-        val titleTextView: TextView = findViewById(R.id.profile_diary_title_tv)
-        val contentTextView: TextView = findViewById(R.id.profile_diary_content_tv)
-        val diaryImageView: ImageView = findViewById(R.id.profile_diary_img_iv)
-
-        titleTextView.text = intent.getStringExtra("diary_title")
-        contentTextView.text = intent.getStringExtra("diary_content")
-        Picasso.get().load(intent.getStringExtra("diary_img")).into(diaryImageView)
-
         // 선택한 날짜 확인
-        val selectedDate = intent.getStringExtra("selectedDate")
+        val selectedDate = intent.getIntExtra("selectedDate", 0)
         val selectedYear = intent.getIntExtra("selectedYear", 0)
         val selectedMonth = intent.getIntExtra("selectedMonth", 0)
 
-        Log.d("ProfileDiaryActivity", "Selected Date: $selectedYear $selectedMonth $selectedDate")
+        Log.d("선택한 날짜 확인", "Selected Date: $selectedYear $selectedMonth $selectedDate")
+
+        if (selectedDate != 0) {
+            val formattedDate = "$selectedYear-$selectedMonth-$selectedDate"
+            myPageService.getCalenderDiaryDetail(this, formattedDate)
+        } else {
+            val titleTextView: TextView = findViewById(R.id.profile_diary_title_tv)
+            val contentTextView: TextView = findViewById(R.id.profile_diary_content_tv)
+            val diaryImageView: ImageView = findViewById(R.id.profile_diary_img_iv)
+            titleTextView.text = intent.getStringExtra("diary_title")
+            contentTextView.text = intent.getStringExtra("diary_content")
+            Picasso.get().load(intent.getStringExtra("diary_img")).into(diaryImageView)
+
+            diaryId = intent.getIntExtra("diary_id", 0)
+        }
 
         // 이전 화면으로 돌아가기
         val previousBtn: ImageView = findViewById(R.id.previous_arrow_iv)
@@ -54,6 +65,7 @@ class ProfileDiaryActivity : AppCompatActivity() {
 
         // 일기 삭제하기 (삭제 API 호출 후 이전 화면으로 이동)
         deleteButtonLayout.setOnClickListener {
+            myPageService.deleteDiary(diaryId)
             finish()
         }
 
@@ -76,6 +88,14 @@ class ProfileDiaryActivity : AppCompatActivity() {
         profileDiaryImageView.setOnClickListener {
             showImageDialog(profileDiaryImageView.drawable)
         }
+    }
+
+    override fun onDataLoaded(diary: MyPageDiary) {
+        val titleTextView: TextView = findViewById(R.id.profile_diary_title_tv)
+        val contentTextView: TextView = findViewById(R.id.profile_diary_content_tv)
+        titleTextView.text = diary.title
+        contentTextView.text = diary.content
+        diaryId = diary.diaryId
     }
 
     private fun showImageDialog(drawable: Drawable) {

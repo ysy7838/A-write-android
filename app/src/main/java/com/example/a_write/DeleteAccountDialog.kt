@@ -2,15 +2,18 @@ package com.example.a_write
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Point
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.TextView
+import android.graphics.Point
+import android.content.res.Resources
+import android.view.View
+import com.example.a_write.api.MyPageService
 
 
 class DeleteAccountDialog(context: Context, private val listener: OnBtnSelectedListener) : Dialog(context) {
-
     private var isConfirmationMode = false
+    private val myPageService = MyPageService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,7 @@ class DeleteAccountDialog(context: Context, private val listener: OnBtnSelectedL
         // 예/확인 버튼 선택
         findViewById<TextView>(R.id.withdraw_yes_btn).setOnClickListener {
             if (isConfirmationMode) {
+                myPageService.deleteUser()
                 handleConfirmationButtonClick()
             } else {
                 showConfirmationText()
@@ -57,15 +61,11 @@ class DeleteAccountDialog(context: Context, private val listener: OnBtnSelectedL
     }
 
     private fun handleConfirmationButtonClick() {
-        listener.onBtnSelected(true)
+        listener.onBtnSelected()
         dismiss()
-
-        //로그인 화면으로 이동
     }
 
     interface OnBtnSelectedListener {
-        fun onBtnSelected(clickedBtn: Boolean)
+        fun onBtnSelected()
     }
 }
-
-
