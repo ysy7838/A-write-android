@@ -69,5 +69,3 @@ class DeleteAccountDialog(context: Context, private val listener: OnBtnSelectedL
         fun onBtnSelected()
     }
 }
-
-

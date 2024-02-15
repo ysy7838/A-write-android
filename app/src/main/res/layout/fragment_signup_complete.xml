@@ -15,14 +15,15 @@
             android:textSize="22sp"
             android:textColor="@color/black"
 
-            android:text="사각사각"
+            android:text="인증 완료"
             android:layout_marginTop="65dp"
-            android:layout_marginStart="36dp"
+            android:fontFamily="@font/mitr_semibold"
             android:textStyle="bold"
 
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
         <TextView
@@ -30,10 +31,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
+            android:fontFamily="@font/mitr_medium"
 
-            android:text="이메일 주소가 인증되었습니다."
+            android:text="인증이 완료되었습니다."
             android:layout_marginTop="137dp"
             android:layout_marginStart="36dp"
             android:textStyle="bold"

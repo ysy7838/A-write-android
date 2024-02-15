@@ -11,6 +11,7 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:gravity="center"
+        android:fontFamily="@font/mitr_regular"
         android:textSize="18sp"
         android:textFontWeight="400"
         android:textColor="@color/black" />
