@@ -4,21 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 //import org.devio.rn.splashscreen.SplashScreen
 
 
 class SplashActivity :AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
 
-//        installSplashScreen()
-//
-//        // Showing the React Native splash screen
-//        SplashScreen.show(this, true)
-//
-//        // Call to the superclass' onCreate method
-//        super.onCreate(null)
+        installSplashScreen()
 
-        super.onCreate(savedInstanceState)
+        // Showing the React Native splash screen
+//        SplashScreen.show(this, true)
+
+        // Call to the superclass' onCreate method
+        super.onCreate(null)
+
+//        super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_splash)
 
