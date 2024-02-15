@@ -12,7 +12,8 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.example.a_write.api.DiaryResult
+//import com.example.a_write.api.DiaryResult
+import com.example.a_write.database.DiaryResult
 import com.example.a_write.databinding.FragmentDiaryDetailBinding
 import com.squareup.picasso.Picasso
 
@@ -26,7 +27,7 @@ class DiaryDetailFragment : Fragment() {
         fun newInstance(diary: DiaryResult): DiaryDetailFragment {
             val fragment = DiaryDetailFragment()
             val args = Bundle()
-            args.putSerializable(ARG_DIARY, diary)
+            args.putParcelable(ARG_DIARY, diary)
             fragment.arguments = args
             return fragment
         }
@@ -38,7 +39,7 @@ class DiaryDetailFragment : Fragment() {
     ): View {
         binding = FragmentDiaryDetailBinding.inflate(inflater, container, false)
 
-        val diary: DiaryResult? = arguments?.getSerializable("diary") as? DiaryResult
+        val diary: DiaryResult? = arguments?.getParcelable(ARG_DIARY)
 
         diary?.let {
             Log.d("일기 데이터", it.toString())

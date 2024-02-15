@@ -4,15 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a_write.api.DiaryResult
+import com.example.a_write.database.DiaryResult
+//import com.example.a_write.api.DiaryResult
 import com.example.a_write.api.DiaryService
 import com.example.a_write.databinding.ItemPreviewDiaryBinding
 
 class HomePreviewDiaryRVAdapter(
-    private val diaries: List<DiaryResult>,
     private val onItemClicked: (DiaryResult) -> Unit
 ) :
     RecyclerView.Adapter<HomePreviewDiaryRVAdapter.ViewHolder>() {
+
+    private val diaries = mutableListOf<DiaryResult>()
+
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
@@ -25,6 +28,16 @@ class HomePreviewDiaryRVAdapter(
 
     override fun onBindViewHolder(holder: HomePreviewDiaryRVAdapter.ViewHolder, position: Int) {
         holder.bind(diaries[position], onItemClicked)
+    }
+
+    override fun getItemCount(): Int {
+        return diaries.size
+    }
+
+    fun submitList(list: MutableList<DiaryResult>) {
+        diaries.clear()
+        diaries.addAll(list)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(private val binding: ItemPreviewDiaryBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -58,10 +71,6 @@ class HomePreviewDiaryRVAdapter(
             binding.itemDiaryHeartOnIv.visibility = if (isSaved) View.VISIBLE else View.GONE
             binding.itemDiaryHeartOffIv.visibility = if (isSaved) View.GONE else View.VISIBLE
         }
-    }
-
-    override fun getItemCount(): Int {
-        return diaries.size
     }
 
 }
