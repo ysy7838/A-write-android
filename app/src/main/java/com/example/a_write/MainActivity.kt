@@ -1,7 +1,7 @@
 package com.example.a_write
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.a_write.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.main_bnv)
 
+        //초기 선택 항목을 2번째 항목으로
+        bottomNavigationView.selectedItemId = R.id.homeFragment
+
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment -> {
@@ -35,9 +38,8 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.writeFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, WriteFragment())
-                        .commitAllowingStateLoss()
+                    val intent = Intent(this,WriteActivity::class.java)
+                    startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
                 R.id.heartFragment -> {
@@ -56,4 +58,5 @@ class MainActivity : AppCompatActivity() {
             false
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.a_write
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,9 @@ class SignUpCompleteFragment : Fragment() {
         binding = FragmentSignupCompleteBinding.inflate(inflater, container, false)
 
         binding.completeButtonTv.setOnClickListener{
-            //activity 변경 home으로
+            val intent = Intent(activity, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
 
         return binding.root

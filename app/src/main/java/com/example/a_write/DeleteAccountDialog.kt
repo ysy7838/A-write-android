@@ -2,12 +2,10 @@ package com.example.a_write
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.TextView
-import android.graphics.Point
-import android.content.res.Resources
-import android.view.View
 
 
 class DeleteAccountDialog(context: Context, private val listener: OnBtnSelectedListener) : Dialog(context) {

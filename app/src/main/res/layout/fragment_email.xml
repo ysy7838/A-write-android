@@ -117,9 +117,10 @@
                 android:layout_marginTop="22dp"
 
                 android:textSize="18sp"
+                android:fontFamily="@font/mitr_semibold"
                 android:textColor="@color/your_app_background_color"
 
-                android:text="인증 메일 보내기"
+                android:text="인증 코드 전송"
                 android:gravity="center"
 
                 android:background="@drawable/background_text"
@@ -150,7 +151,6 @@
                 android:background="@drawable/background_text"
 
                 android:textStyle="bold"
-                android:backgroundTint="@color/gray8"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -160,12 +160,15 @@
             <TextView
                 android:id="@+id/email_explain4_tv"
 
-                android:layout_width="320dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
 
                 android:layout_gravity="center_horizontal"
 
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+
+                android:layout_marginTop="24dp"
 
                 android:textSize="12sp"
                 android:paddingTop="5sp"
@@ -173,7 +176,7 @@
                 android:textColor="@color/black"
                 android:background="#EAEAEA"
 
-                android:text="입력한 이메일 주소로 인증 메일을 보냈어요."
+                android:text="입력하신 이메일 주소로 인증 코드를 보냈어요."
                 android:gravity="center_vertical"
 
                 android:drawableLeft="@drawable/ic_greencheck"
@@ -181,28 +184,33 @@
 
                 android:visibility="gone"
                 />
-            <TextView
-                android:id="@+id/email_explain5_tv"
-
-                android:layout_width="320dp"
-                android:layout_height="30dp"
-
-                android:layout_gravity="center_horizontal"
-
-
-                android:textSize="12sp"
-                android:paddingStart="36sp"
-                android:textColor="@color/black"
-                android:background="#EAEAEA"
-
-                android:text="메일을 열어 링크를 클릭하면 인증이 완료돼요."
-
-
-                android:visibility="gone"
-                />
 
         </LinearLayout>
 
+    <Button
+        android:id="@+id/code_next_bt"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:text="인증 코드 입력하기"
+        android:fontFamily="@font/mitr_semibold"
+        android:textSize="22dp"
+
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
+
+        android:backgroundTint="@color/red"
+        app:cornerRadius="15dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:visibility="gone"
+
+
+        />
 
 
 

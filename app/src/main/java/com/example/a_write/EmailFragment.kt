@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.a_write.databinding.FragmentEmailBinding
 
@@ -22,16 +23,27 @@ class EmailFragment :Fragment(), SignUpView{
 
 
         binding.emailSendButtonTv.setOnClickListener{
+
+
             binding.emailExplain3Tv.visibility=View.VISIBLE
             binding.emailExplain4Tv.visibility=View.VISIBLE
-            binding.emailExplain5Tv.visibility=View.VISIBLE
 
+            binding.emailSendButtonTv.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.grayA))
+
+            binding.codeNextBt.visibility=View.VISIBLE
             //send email
 //            val authService = AuthService()
 //            authService.setSignUpView(this)
 //
 //            authService.signUp(getUser())
 
+
+        }
+
+        binding.codeNextBt.setOnClickListener{
+            (context as SignUpActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.signup_frm, CodeFragment())
+                .commit()
         }
 
         binding.emailLoginButtonTv.setOnClickListener{
