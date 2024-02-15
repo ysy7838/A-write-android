@@ -7,10 +7,15 @@ import android.widget.TextView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.a_write.api.MyPageDiary
+import com.example.a_write.api.MyPageService
+import com.example.a_write.api.PasswordMatchListener
+import com.google.gson.JsonObject
 
-class DeleteAccountActivity : AppCompatActivity(), DeleteAccountDialog.OnBtnSelectedListener {
+class DeleteAccountActivity : AppCompatActivity(), DeleteAccountDialog.OnBtnSelectedListener,
+    PasswordMatchListener {
     private lateinit var withdrawBtn: TextView
-    private val userPassword = "password" //임시 비밀번호
+    private val myPageService = MyPageService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +38,22 @@ class DeleteAccountActivity : AppCompatActivity(), DeleteAccountDialog.OnBtnSele
         withdrawBtn.setOnClickListener {
             val passwordEditText: EditText = findViewById(R.id.current_password_input_etv)
             val enteredPassword = passwordEditText.text.toString()
-
-            if (enteredPassword == userPassword) {
-                showWithdrawDialog()
-            } else {
-                showToast("비밀번호가 일치하지 않습니다.")
+            val pwData = JsonObject().apply {
+                addProperty("password", enteredPassword)
             }
+
+            myPageService.passwordsMatch(this, pwData)
         }
     }
+
+    override fun onDataLoaded(data: Boolean) {
+        if(data) {
+            showWithdrawDialog()
+        } else {
+            showToast("비밀번호가 일치하지 않습니다.")
+        }
+    }
+
 
     private fun showWithdrawDialog() {
         val deleteAccountDialog = DeleteAccountDialog(this, this)

@@ -1,4 +1,4 @@
-package com.example.a_write
+package com.example.a_write.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

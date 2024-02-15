@@ -1,4 +1,4 @@
-package com.example.a_write
+package com.example.a_write.api
 
 import com.google.gson.annotations.SerializedName
 

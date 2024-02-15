@@ -12,25 +12,25 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.example.a_write.api.DiaryResult
 import com.example.a_write.databinding.FragmentDiaryDetailBinding
 import com.squareup.picasso.Picasso
 
 class DiaryDetailFragment : Fragment() {
 
-    companion object {
-        private const val ARG_POST = "arg_post"
+    private lateinit var binding: FragmentDiaryDetailBinding
 
-        fun newInstance(diary: Diary): DiaryDetailFragment {
+    companion object {
+        private const val ARG_DIARY = "diary"
+
+        fun newInstance(diary: DiaryResult): DiaryDetailFragment {
             val fragment = DiaryDetailFragment()
-            val bundle = Bundle().apply {
-                putParcelable(ARG_POST, diary)
-            }
-            fragment.arguments = bundle
+            val args = Bundle()
+            args.putSerializable(ARG_DIARY, diary)
+            fragment.arguments = args
             return fragment
         }
     }
-
-    private lateinit var binding: FragmentDiaryDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,16 +38,16 @@ class DiaryDetailFragment : Fragment() {
     ): View {
         binding = FragmentDiaryDetailBinding.inflate(inflater, container, false)
 
-        val diary: Diary? = arguments?.getParcelable(ARG_POST) as? Diary
+        val diary: DiaryResult? = arguments?.getSerializable("diary") as? DiaryResult
 
         diary?.let {
             Log.d("일기 데이터", it.toString())
             binding.diaryDetailTitleTv.text = it.title
             binding.diaryDetailContentTv.text = it.content
-            Picasso.get().load(it.img).into(binding.diaryDetailImgIv)
-            binding.diaryDetailNicknameTv.text = it.user
-            binding.diaryDetailProfileIv.setImageResource(getProfileImageResourceId(it.profile))
-            updateHeartVisibility(it.isSaved)
+            Picasso.get().load(it.imgUrl).into(binding.diaryDetailImgIv)
+            binding.diaryDetailNicknameTv.text = it.authorName
+            binding.diaryDetailProfileIv.setImageResource(getProfileImageResourceId(it.authorProfile))
+            updateHeartVisibility(it.heartby)
         } ?: Log.d("일기 데이터", "일기를 불러오는 데 실패했습니다.")
 
         // 이전 버튼 선택
@@ -68,14 +68,14 @@ class DiaryDetailFragment : Fragment() {
 
         heartOffImageView.setOnClickListener {
             diary?.let {
-                it.isSaved = true
+                it.heartby = true
                 updateHeartVisibility(true)
             }
         }
 
         heartOnImageView.setOnClickListener {
             diary?.let {
-                it.isSaved = false
+                it.heartby = false
                 updateHeartVisibility(false)
             }
         }

@@ -1,5 +1,7 @@
-package com.example.a_write
+package com.example.a_write.api
 
+import com.example.a_write.User
+import com.example.a_write.UserLogin
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

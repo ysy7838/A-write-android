@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a_write.api.DiaryResult
+import com.example.a_write.api.DiaryService
 import com.example.a_write.databinding.ItemPreviewDiaryBinding
 
 class HeartPreviewDiaryRVAdapter(
-    private val diaries: MutableList<Diary>,
-    private val onItemClicked: (Diary) -> Unit
+    private val diaries: List<DiaryResult>,
+    private val onItemClicked: (DiaryResult) -> Unit
 ) :
     RecyclerView.Adapter<HeartPreviewDiaryRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
@@ -31,16 +33,17 @@ class HeartPreviewDiaryRVAdapter(
 
     class ViewHolder(private val binding: ItemPreviewDiaryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(diary: Diary, adapter: HeartPreviewDiaryRVAdapter, onItemClicked: (Diary) -> Unit) {
+        fun bind(diary: DiaryResult, adapter: HeartPreviewDiaryRVAdapter, onItemClicked: (DiaryResult) -> Unit) {
             binding.itemDiaryPostTitleTv.text = diary.title
             binding.itemDiaryPostContentTv.text = diary.content
-            binding.itemDiaryProfileIv.setImageResource(getProfileImageResourceId(diary.profile))
-            binding.itemDiaryHeartOnIv.visibility = if (diary.isSaved) View.VISIBLE else View.GONE
-            binding.itemDiaryHeartOffIv.visibility = if (diary.isSaved) View.GONE else View.VISIBLE
+            binding.itemDiaryProfileIv.setImageResource(getProfileImageResourceId(diary.authorProfile))
+            binding.itemDiaryHeartOnIv.visibility = if (diary.heartby) View.VISIBLE else View.GONE
+            binding.itemDiaryHeartOffIv.visibility = if (diary.heartby) View.GONE else View.VISIBLE
+
+            val diaryService = DiaryService()
 
             binding.itemDiaryHeartOnIv.setOnClickListener {
-                val position = adapter.removePost(diary)
-                adapter.notifyItemRemoved(position)
+                diaryService.deleteDiaryHeart(diary.diaryId)
             }
 
             binding.root.setOnClickListener {
@@ -51,15 +54,6 @@ class HeartPreviewDiaryRVAdapter(
 
     override fun getItemCount(): Int {
         return diaries.size
-    }
-
-    //보관함에 있는 일기 삭제 (서버 연결하면 코드 수정하기)
-    fun removePost(diary: Diary): Int {
-        val position = diaries.indexOf(diary)
-        if (position != -1) {
-            diaries.removeAt(position)
-        }
-        return position
     }
 
 }
