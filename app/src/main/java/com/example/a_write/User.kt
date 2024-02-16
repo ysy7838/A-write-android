@@ -10,6 +10,6 @@ data class User(
 )
 
 data class UserLogin(
-    @SerializedName(value = "id") var id: String,
+    @SerializedName(value = "email") var id: String,
     @SerializedName(value = "password") var password: String,
 )

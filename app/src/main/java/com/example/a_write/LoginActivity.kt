@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.a_write.api.AuthService
 import com.example.a_write.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -28,13 +29,13 @@ class LoginActivity : AppCompatActivity(), LoginView {
         binding.loginBtn.setOnClickListener {
 
             //시연용
-            startMainActivity()
+            //startMainActivity()
 
             //login
-//            val authService = AuthService()
-//            authService.setLoginView(this)
-//
-//            authService.login(getUser())
+            val authService = AuthService()
+            authService.setLoginView(this)
+
+            authService.login(getUser())
 
         }
 

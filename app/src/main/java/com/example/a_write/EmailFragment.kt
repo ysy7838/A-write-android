@@ -31,10 +31,12 @@ class EmailFragment :Fragment(), CodeView{
             binding.emailSendButtonTv.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.grayA))
 
 
-            val email = binding.emailNameEt.toString()
+            val email = binding.emailNameEt.text.toString()
+
             if (!(email.contains('@') && email.indexOf('@') != email.lastIndex)) {
                 //@뒤에 들어가야함
                 Toast.makeText(activity, "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+                Log.d("CodeSend", email)
             }
             else codeSend()
 
@@ -54,9 +56,8 @@ class EmailFragment :Fragment(), CodeView{
 
 
 
-
     private fun getUser(): User {
-        val email: String = binding.emailNameEt.toString()
+        val email: String = binding.emailNameEt.text.toString()
         val pwd = arguments?.getString("pwd") ?:""
         val name = arguments?.getString("name") ?:""
 
@@ -68,7 +69,7 @@ class EmailFragment :Fragment(), CodeView{
         val codeService = CodeService()
         codeService.setCodeView(this)
 
-        codeService.sendCode(getUser().email)
+        codeService.sendCode(CodeSend(getUser().email))
     }
 
     override fun onEmailCodeSuccess() {

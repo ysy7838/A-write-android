@@ -7,7 +7,7 @@ import com.example.a_write.databinding.ActivitySignupBinding
 
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var user:User
+    lateinit var user:User
 
     lateinit var binding: ActivitySignupBinding
 
