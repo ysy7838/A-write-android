@@ -3,6 +3,7 @@ package com.example.a_write
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +19,13 @@ import com.example.a_write.api.DiaryService
 import com.example.a_write.api.MyPageDiary
 import com.example.a_write.api.MyPageDiaryListener
 import com.example.a_write.api.MyPageService
+import com.example.a_write.api.MyPageUserInfoListener
+import com.example.a_write.api.UserInfo
 import com.example.a_write.databinding.FragmentProfileBinding
 import java.util.Calendar
 
 
-class ProfileFragment : Fragment(), MyPageDiaryListener {
+class ProfileFragment : Fragment(), MyPageDiaryListener, MyPageUserInfoListener {
 
     private lateinit var binding: FragmentProfileBinding
     private val myPageService = MyPageService()
@@ -33,6 +36,7 @@ class ProfileFragment : Fragment(), MyPageDiaryListener {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+        myPageService.getUserInfo(this)
         myPageService.getMyPageDiaryList(this)
 
         // 환경설정 아이콘 클릭
@@ -75,6 +79,11 @@ class ProfileFragment : Fragment(), MyPageDiaryListener {
         binding.profileTopPostsRv.adapter = profileTopPostRVAdapter
         binding.profileTopPostsRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    override fun onUserDataLoaded(data: UserInfo) {
+        binding.profileImgIv.setImageResource(getProfileImageResourceId(data.profileImg))
+        binding.nicknameTv.text = data.nickname
     }
 
     private fun getDaysOfMonth(year: Int, month: Int): List<String> {

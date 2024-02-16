@@ -4,17 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a_write.database.DiaryResult
-//import com.example.a_write.api.DiaryResult
+import com.example.a_write.api.DiaryResult
 import com.example.a_write.api.DiaryService
 import com.example.a_write.databinding.ItemPreviewDiaryBinding
 
 class HomePreviewDiaryRVAdapter(
+    private val diaries: List<DiaryResult>,
     private val onItemClicked: (DiaryResult) -> Unit
 ) :
     RecyclerView.Adapter<HomePreviewDiaryRVAdapter.ViewHolder>() {
-
-    private val diaries = mutableListOf<DiaryResult>()
 
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
@@ -32,12 +30,6 @@ class HomePreviewDiaryRVAdapter(
 
     override fun getItemCount(): Int {
         return diaries.size
-    }
-
-    fun submitList(list: MutableList<DiaryResult>) {
-        diaries.clear()
-        diaries.addAll(list)
-        notifyDataSetChanged()
     }
 
     class ViewHolder(private val binding: ItemPreviewDiaryBinding) : RecyclerView.ViewHolder(binding.root) {

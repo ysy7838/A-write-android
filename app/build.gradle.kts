@@ -2,7 +2,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -78,10 +77,5 @@ dependencies {
 
     //splashscreen
     implementation ("androidx.core:core-splashscreen:1.1.0-alpha02")
-
-    //firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-firestore-ktx:23.0.3")
 
 }
