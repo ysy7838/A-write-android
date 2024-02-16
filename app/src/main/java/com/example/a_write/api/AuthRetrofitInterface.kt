@@ -10,7 +10,6 @@ interface AuthRetrofitInterface {
     @POST("/users/join")
     fun signUp(@Body user: User): Call<AuthResponse>
 
-
     @POST("/users/login")
     fun login(@Body user: UserLogin): Call<AuthResponse>
 

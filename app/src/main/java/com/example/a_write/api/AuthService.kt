@@ -28,10 +28,18 @@ class AuthService {
 
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 Log.d("SIGNUP/SUCCESS", response.toString())
-                val resp: AuthResponse = response.body()!!
-                when(resp.code){
-                    "COMMON200"->signUpView.onSignUpSuccess()
-                    else->signUpView.onSignUpFailure(resp.message)
+
+                response.body()?.let { resp ->
+                    when(resp.code){
+                        "COMMON200" -> signUpView.onSignUpSuccess()
+                        else -> signUpView.onSignUpFailure(resp.message)
+                    }
+                } ?: run {
+                    // response.body()가 null인 경우의 처리
+                    Log.d("SIGNUP/FAILURE", "응답 본문이 비어 있습니다.")
+
+                    //서버랑 연결이 안될 때(network오류)
+                    signUpView.onSignUpFailure("서버로부터 응답을 받지 못했습니다.")
                 }
 
             }

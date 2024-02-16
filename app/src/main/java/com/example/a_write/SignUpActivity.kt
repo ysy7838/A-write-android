@@ -1,14 +1,13 @@
 package com.example.a_write
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.a_write.databinding.ActivitySignupBinding
 
 
 class SignUpActivity : AppCompatActivity() {
+
+    private lateinit var user:User
 
     lateinit var binding: ActivitySignupBinding
 
@@ -22,17 +21,25 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     private fun start(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.signup_frm, SignUpFragment())
             .commitAllowingStateLoss()
     }
+
+    fun setUserData(user:User) {
+        this.user = user
+    }
+
+
+    /* 다른 fragment에서 date, month, year접근하고 싶다면
+
+
+    val WriteActivity = activity as? WriteActivity
+    val date = WriteActivity?.selectedDate
+    val year = WriteActivity?.selectedYear
+    val month = WriteActivity?.selectedMonth
+
+    를 통해 접근 가능합니다.
+    */
 }

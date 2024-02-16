@@ -13,7 +13,7 @@ class WriteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_write)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.write_activity_lo, WriteFragment())
+            .replace(R.id.write_activity_lo, CalendarFragment())
             .commitAllowingStateLoss()
     }
 
