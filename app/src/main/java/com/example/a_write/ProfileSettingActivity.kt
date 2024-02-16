@@ -3,6 +3,7 @@ package com.example.a_write
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,12 +19,13 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
     private lateinit var profileImageView: ImageView
     private var originalProfileId: Int = 1
     private var selectedProfileId: Int = 1
-    private val myPageService = MyPageService()
+    private lateinit var myPageService: MyPageService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_setting)
 
+        myPageService = MyPageService(applicationContext)
         myPageService.getUserInfo(this)
 
         // 프로필 클릭 시 프로필 선택 다이얼로그 실행
@@ -38,21 +40,22 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
             finish()
         }
 
-        // 닉네임 수정 값 관리
-        val nicknameEditText: EditText = findViewById(R.id.setting_nickname_input_etv)
-        val enteredNickname = nicknameEditText.text.toString()
-
-        val nicknameData = JsonObject().apply {
-            addProperty("nickname", enteredNickname)
-        }
-
-        val profileData = JsonObject().apply {
-            addProperty("profileImg", selectedProfileId)
-        }
 
         // 사용자 정보 수정 완료
         val editCompleteBtn: TextView = findViewById(R.id.edit_complete_btn)
         editCompleteBtn.setOnClickListener {
+
+            // 닉네임 수정 값 관리
+            val nicknameEditText: EditText = findViewById(R.id.setting_nickname_input_etv)
+            val enteredNickname = nicknameEditText.text.toString()
+
+            val nicknameData = JsonObject().apply {
+                addProperty("nickname", enteredNickname)
+            }
+
+            val profileData = JsonObject().apply {
+                addProperty("profileImg", selectedProfileId)
+            }
 
             if(enteredNickname != null) {
                 myPageService.patchNickname(nicknameData)
@@ -83,6 +86,7 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
 
     override fun onUserDataLoaded(data: UserInfo) {
         originalProfileId = data.profileImg
+        Log.d("API oP", originalProfileId.toString())
 
         // 프로필 이미지 띄우기
         profileImageView.setImageResource(getProfileImageResourceId(originalProfileId))
@@ -93,7 +97,6 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
         emailTextView.text = data.email
 
     }
-
 
     private fun showChooseIconDialog() {
         val profileChooseIconDialog = ProfileChooseIconDialog(this, this, originalProfileId)

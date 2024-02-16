@@ -7,7 +7,6 @@ import android.widget.TextView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import com.example.a_write.api.MyPageDiary
 import com.example.a_write.api.MyPageService
 import com.example.a_write.api.PasswordMatchListener
 import com.google.gson.JsonObject
@@ -15,7 +14,7 @@ import com.google.gson.JsonObject
 class DeleteAccountActivity : AppCompatActivity(), DeleteAccountDialog.OnBtnSelectedListener,
     PasswordMatchListener {
     private lateinit var withdrawBtn: TextView
-    private val myPageService = MyPageService()
+    private lateinit var myPageService: MyPageService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +41,7 @@ class DeleteAccountActivity : AppCompatActivity(), DeleteAccountDialog.OnBtnSele
                 addProperty("password", enteredPassword)
             }
 
+            myPageService = MyPageService(applicationContext)
             myPageService.passwordsMatch(this, pwData)
         }
     }
