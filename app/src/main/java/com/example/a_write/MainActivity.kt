@@ -1,7 +1,6 @@
 package com.example.a_write
 
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.a_write.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.writeFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, WriteFragment())
+                        .replace(R.id.main_frm, ThemeFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
