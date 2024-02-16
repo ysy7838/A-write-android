@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a_write.R
 
-class ThemeAdapter(private val list: ArrayList<String>, private val context: Context) : RecyclerView.Adapter<ThemeAdapter.ViewHolder>() {
+class ThemeAdapter(private val list: ArrayList<String>, private val context: Context, private val itemClickListener: (Int) -> Unit) : RecyclerView.Adapter<ThemeAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(context).inflate(R.layout.view_theme, parent, false)
         return ViewHolder(v)
@@ -26,6 +26,7 @@ class ThemeAdapter(private val list: ArrayList<String>, private val context: Con
             "theme_yellow" -> holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.theme_yellow))
             "theme_red" -> holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.theme_red))
         }
+
     }
 
     override fun getItemCount(): Int {

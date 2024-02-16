@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.widget.Button
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -21,6 +23,7 @@ class ThemeFragment : Fragment() {
     lateinit var mAdapter: ThemeAdapter
     lateinit var btnToWriteFragment: Button
     val themes = arrayOf("theme_blue", "theme_green", "theme_yellow","theme_red")
+    var selectedThemeIndex: Int? = null  // 선택한 테마의 인덱스를 저장할 변수 추가
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,9 +38,13 @@ class ThemeFragment : Fragment() {
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         rvThemes.layoutManager = layoutManager
 
-        val dataThemes = arrayListOf(themes[0],themes[1],themes[2],themes[3])
+        val dataThemes = arrayListOf(themes[0],themes[1],themes[2],themes[3]) //테마리스트
 
-        mAdapter = ThemeAdapter(dataThemes, requireActivity())
+        mAdapter = ThemeAdapter(dataThemes, requireActivity()) { position ->
+            // 아이템 클릭 이벤트 처리
+            btnToWriteFragment.isEnabled = true
+            selectedThemeIndex = position
+        }
         rvThemes.adapter = mAdapter
         rvThemes.setPadding(130,100,130,100)
 
@@ -55,6 +62,9 @@ class ThemeFragment : Fragment() {
                 super.onScrollStateChanged(recyclerView, newState)
                 val v = snapHelper.findSnapView(layoutManager)
                 val pos = layoutManager.getPosition(v!!)
+                // 'pos' is the index of the center item
+                selectedThemeIndex = pos
+
                 val viewHolder = rvThemes.findViewHolderForAdapterPosition(pos)
                 val rl1 = viewHolder?.itemView?.findViewById<RelativeLayout>(R.id.rl1)
 
@@ -66,15 +76,13 @@ class ThemeFragment : Fragment() {
             }
         })
 
+        //button처리 필요
+
         return v
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnToWriteFragment = view.findViewById(R.id.btnToWriteFragment)
-        btnToWriteFragment.setOnClickListener {
-            findNavController().navigate(R.id.action_themeFragment_to_writeFragment)
-        }
     }
 
 }
