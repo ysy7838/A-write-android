@@ -76,7 +76,7 @@ class ThemeFragment : Fragment() {
             }
         })
 
-        //button처리 필요
+        //pos값을 가지고 WirteFragment로 이동하게 만들어야
 
         return v
     }

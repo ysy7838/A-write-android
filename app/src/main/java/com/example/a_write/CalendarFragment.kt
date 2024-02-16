@@ -14,9 +14,6 @@ import com.example.a_write.adapter.MonthRVAdapter
 import com.example.a_write.databinding.FragmentCalendarBinding
 import java.util.Calendar
 
-
-
-
 class CalendarFragment : Fragment() {
 
     private lateinit var binding: FragmentCalendarBinding
