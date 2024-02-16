@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,9 +26,23 @@
     <Button
         android:id="@+id/btnToWriteFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:text="다음으로" />
+
+        android:text="다음으로"
+        android:fontFamily="@font/mitr_bold"
+        android:textSize="20dp"
+
+        android:layout_marginBottom="20dp"
+
+        android:backgroundTint="@color/red"
+        app:cornerRadius="15dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvThemes"
