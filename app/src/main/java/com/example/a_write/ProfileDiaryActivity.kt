@@ -20,12 +20,14 @@ import com.example.a_write.api.MyPageService
 import com.squareup.picasso.Picasso
 
 class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
-    private val myPageService = MyPageService()
+    private lateinit var myPageService: MyPageService
     private var diaryId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_diary)
+
+        myPageService = MyPageService(applicationContext)
 
         // 선택한 날짜 확인
         val selectedDate = intent.getStringExtra("selectedDate")

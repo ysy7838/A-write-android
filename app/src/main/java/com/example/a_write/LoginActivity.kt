@@ -68,13 +68,13 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     }
 
-    //login token
-    private fun saveJwt2(jwt: String) {
-        val spf = getSharedPreferences("auth2" , MODE_PRIVATE)
-        val editor = spf.edit()
-
-        editor.putString("jwt", jwt)
-        editor.apply()
+    override fun onSessionIdReceived(sessionId: String?) {
+        sessionId?.let {
+            val spf = getSharedPreferences("auth2" , MODE_PRIVATE)
+            val editor = spf.edit()
+            editor.putString("Session", sessionId)
+            editor.apply()
+        }
     }
 
     private fun getUser(): UserLogin {

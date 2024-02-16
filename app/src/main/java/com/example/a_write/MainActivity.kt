@@ -3,18 +3,22 @@ package com.example.a_write
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.a_write.api.MyPageService
 import com.example.a_write.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var myPageService: MyPageService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        myPageService = MyPageService(applicationContext)
 
         initBottomNavigation()
     }
@@ -49,8 +53,9 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.profileFragment -> {
+                    val profileFragment = ProfileFragment(myPageService)
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, ProfileFragment())
+                        .replace(R.id.main_frm, profileFragment)
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }

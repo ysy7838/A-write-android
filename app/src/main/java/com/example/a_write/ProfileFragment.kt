@@ -11,11 +11,10 @@ import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.a_write.api.DiaryResult
-import com.example.a_write.api.DiaryService
 import com.example.a_write.api.MyPageDiary
 import com.example.a_write.api.MyPageDiaryListener
 import com.example.a_write.api.MyPageService
@@ -25,19 +24,16 @@ import com.example.a_write.databinding.FragmentProfileBinding
 import java.util.Calendar
 
 
-class ProfileFragment : Fragment(), MyPageDiaryListener, MyPageUserInfoListener {
+class ProfileFragment(private val myPageService: MyPageService) : Fragment(), MyPageDiaryListener,
+    MyPageUserInfoListener {
 
     private lateinit var binding: FragmentProfileBinding
-    private val myPageService = MyPageService()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        myPageService.getUserInfo(this)
-        myPageService.getMyPageDiaryList(this)
 
         // 환경설정 아이콘 클릭
         val settingImageView: ImageView = binding.icSetting
@@ -63,14 +59,36 @@ class ProfileFragment : Fragment(), MyPageDiaryListener, MyPageUserInfoListener 
                     intent.putExtra("selectedDate", date)
                     intent.putExtra("selectedYear", year)
                     intent.putExtra("selectedMonth", month + 1)
+                    val formattedDate = "$year-${month + 1}-$date"
 
-                    startActivity(intent)
+                    val isSuccess = myPageService.getCalenderBool(formattedDate)
+                    if (isSuccess) {
+                        startActivity(intent)
+                    } else {
+                        showToast(requireContext(),"날짜에 해당하는 일기가 없습니다.")
+                    }
                 }
             })
 
         calendarGridView.adapter = adapter
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        loadData()
+    }
+
+    private fun loadData() {
+        myPageService.getUserInfo(this)
+        myPageService.getMyPageDiaryList(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
     }
 
     override fun onDataLoaded(diaries: List<MyPageDiary>) {
@@ -103,6 +121,10 @@ class ProfileFragment : Fragment(), MyPageDiaryListener, MyPageUserInfoListener 
         }
 
         return daysList
+    }
+
+    private fun showToast(context: Context, message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }
