@@ -81,7 +81,7 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
 
     }
 
-    override fun onDataLoaded(data: UserInfo) {
+    override fun onUserDataLoaded(data: UserInfo) {
         originalProfileId = data.profileImg
 
         // 프로필 이미지 띄우기

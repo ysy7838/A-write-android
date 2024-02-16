@@ -15,7 +15,7 @@ interface MyPageCalenderDiaryListener {
 }
 
 interface MyPageUserInfoListener {
-    fun onDataLoaded(data: UserInfo)
+    fun onUserDataLoaded(data: UserInfo)
 }
 
 interface PasswordMatchListener {
@@ -34,14 +34,13 @@ class MyPageService {
                     val diaries = response.body()
                     if (diaries != null) {
                         listener.onDataLoaded(diaries)
-                    } else {
-                        Log.d("getDiary ERROR", "일기 데이터가 없습니다.")
                     }
                 }
+                Log.d("API getMyPageDiaryList", response.toString())
             }
 
             override fun onFailure(call: Call<List<MyPageDiary>>, t: Throwable) {
-                Log.d("getDiary ERROR", "$t")
+                Log.d("API getMyPageDiaryList ERROR", "$t")
             }
         })
     }
@@ -53,33 +52,33 @@ class MyPageService {
                     val diary = response.body()
                     if (diary != null) {
                         listener.onDataLoaded(diary)
-                    } else {
-                        Log.d("getDiary ERROR", "일기 데이터가 없습니다.")
                     }
                 }
+                Log.d("API getCalenderDiaryDetail", response.toString())
             }
 
             override fun onFailure(call: Call<MyPageDiary>, t: Throwable) {
-                Log.d("getDiary ERROR", "$t")
+                Log.d("API getCalenderDiaryDetail ERROR", "$t")
             }
         })
     }
 
     fun getUserInfo(listener: MyPageUserInfoListener) {
-         myPageService.getUserInformation().enqueue(object : Callback<UserInfo> {
+        myPageService.getUserInformation().enqueue(object : Callback<UserInfo> {
             override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data != null) {
-                        listener.onDataLoaded(data)
+                        listener.onUserDataLoaded(data)
                     } else {
-                        Log.d("getDiary ERROR", "일기 데이터가 없습니다.")
+                        Log.d("API getUserInfo null", "사용자 정보가 없습니다.")
                     }
                 }
+                Log.d("API getUserInfo", response.toString())
             }
 
             override fun onFailure(call: Call<UserInfo>, t: Throwable) {
-                Log.d("getDiary ERROR", "$t")
+                Log.d("API getUserInfo ERROR", "$t")
             }
         })
     }
@@ -88,14 +87,14 @@ class MyPageService {
         myPageService.updateProfile(profileData).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    println("patchProfile 성공")
+                    Log.d("API patchProfile", "성공")
                 } else {
-                    println("patchProfile 실패")
+                    Log.d("API patchProfile", response.toString())
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("patchProfile ERROR", "$t")
+                Log.d("API patchProfile ERROR", "$t")
             }
         })
     }
@@ -104,32 +103,32 @@ class MyPageService {
         myPageService.updateNickname(profileData).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    println("patchNickname 성공")
+                    Log.d("API patchNickname", "성공")
                 } else {
-                    println("patchNickname 실패")
+                    Log.d("API patchNickname", response.toString())
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("patchNickname ERROR", "$t")
+                Log.d("API patchNickname ERROR", "$t")
             }
         })
     }
 
-    fun passwordsMatch(listener : PasswordMatchListener, profileData: JsonObject) {
+    fun passwordsMatch(listener: PasswordMatchListener, profileData: JsonObject) {
         myPageService.postWithdrawal(profileData).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    println("passwordsMatch 성공")
+                    Log.d("API passwordsMatch", "성공")
                     listener.onDataLoaded(true)
                 } else {
-                    println("passwordsMatch 실패")
+                    Log.d("API passwordsMatch", response.toString())
                     listener.onDataLoaded(false)
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("passwordsMatch ERROR", "$t")
+                Log.d("API passwordsMatch ERROR", "$t")
             }
         })
     }
@@ -138,14 +137,14 @@ class MyPageService {
         myPageService.deleteWithdrawal().enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    println("deleteUser 성공")
+                    Log.d("API deleteUser", "성공")
                 } else {
-                    println("deleteUser 실패")
+                    Log.d("API deleteUser", response.toString())
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("deleteUser ERROR", "$t")
+                Log.d("API deleteUser ERROR", "$t")
             }
         })
     }
@@ -154,14 +153,14 @@ class MyPageService {
         myPageService.deleteDiary(diaryId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    println("deleteDiary 성공")
+                    Log.d("API deleteDiary", "성공")
                 } else {
-                    println("deleteDiary 실패")
+                    Log.d("API deleteDiary", response.toString())
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("deleteDiary ERROR", "$t")
+                Log.d("API deleteDiary ERROR", "$t")
             }
         })
     }

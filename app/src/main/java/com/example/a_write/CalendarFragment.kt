@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.a_write.adapter.CalendarRVAdapter
 import com.example.a_write.adapter.MonthRVAdapter
-import com.example.a_write.databinding.FragmentWriteBinding
+import com.example.a_write.databinding.FragmentCalendarBinding
 import java.util.Calendar
 
 
@@ -19,7 +19,7 @@ import java.util.Calendar
 
 class CalendarFragment : Fragment() {
 
-    private lateinit var binding: FragmentWriteBinding
+    private lateinit var binding: FragmentCalendarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +27,7 @@ class CalendarFragment : Fragment() {
     ): View? {
 
 
-        binding = FragmentWriteBinding.inflate(inflater, container, false)
+        binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
         // 캘린더 설정
         val calendar = Calendar.getInstance()
