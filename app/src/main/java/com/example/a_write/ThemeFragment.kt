@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
+import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a_write.adapter.ThemeAdapter
 
+
 class ThemeFragment : Fragment() {
     lateinit var rvThemes: RecyclerView
     lateinit var mAdapter: ThemeAdapter
-    val themes = arrayOf("theme1", "theme2", "theme3")
+    lateinit var btnToWriteFragment: Button
+    val themes = arrayOf("theme_blue", "theme_green", "theme_yellow","theme_red")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,12 +29,13 @@ class ThemeFragment : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_theme, container, false)
         rvThemes = v.findViewById(R.id.rvThemes)
+        btnToWriteFragment = v.findViewById(R.id.btnToWriteFragment)
         rvThemes.setHasFixedSize(true)
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         rvThemes.layoutManager = layoutManager
 
-        val dataThemes = arrayListOf(themes[0],themes[1],themes[2])
+        val dataThemes = arrayListOf(themes[0],themes[1],themes[2],themes[3])
 
         mAdapter = ThemeAdapter(dataThemes, requireActivity())
         rvThemes.adapter = mAdapter
@@ -60,6 +65,16 @@ class ThemeFragment : Fragment() {
                 }
             }
         })
+
         return v
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btnToWriteFragment = view.findViewById(R.id.btnToWriteFragment)
+        btnToWriteFragment.setOnClickListener {
+            findNavController().navigate(R.id.action_themeFragment_to_writeFragment)
+        }
+    }
+
 }
