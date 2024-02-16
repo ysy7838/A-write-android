@@ -261,7 +261,7 @@
             android:gravity="center"
 
             android:background="@drawable/background_text"
-            android:backgroundTint="@color/gray8"
+            android:backgroundTint="@color/grayC"
 
 
             android:layout_marginBottom="20sp"

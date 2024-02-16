@@ -78,6 +78,7 @@ dependencies {
 
     //splashscreen
     implementation ("androidx.core:core-splashscreen:1.1.0-alpha02")
+//    implementation(":react-native-splash-screen")
 
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))

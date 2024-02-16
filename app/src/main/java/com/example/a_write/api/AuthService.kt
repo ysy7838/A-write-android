@@ -22,6 +22,8 @@ class AuthService {
     }
 
     fun signUp(user: User) {
+        Log.d("Sign/REQUEST",user.toString())
+
 
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
         authService.signUp(user).enqueue(object: retrofit2.Callback<AuthResponse>{
@@ -56,22 +58,28 @@ class AuthService {
 
 
     fun login(user: UserLogin) {
-        val loginService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
+        Log.d("Login/REQUEST",user.toString())
+
+        val loginService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
         loginService.login(user).enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
 
                 Log.d("LOGIN/SUCCESS", response.toString())
 
-                val resp: AuthResponse = response.body()!!
+                response.body()?.let { resp ->
+                    when(resp.code){
+                        "COMMON200" -> loginView.onLoginSuccess()
+                        else -> loginView.onLoginFailure(resp.message)
+                    }
+                } ?: run {
+                    // response.body()가 null인 경우의 처리
+                    Log.d("LOGIN/FAILURE", "응답 본문이 비어 있습니다.")
 
-                when (resp.code) {
-                    "COMMON200" -> loginView.onLoginSuccess()//추후 변경
-                    else -> loginView.onLoginFailure(resp.message)
+                    //서버랑 연결이 안될 때(network오류)
+                    loginView.onLoginFailure("서버로부터 응답을 받지 못했습니다.")
                 }
-
-
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {

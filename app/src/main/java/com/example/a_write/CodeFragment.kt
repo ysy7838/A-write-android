@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.a_write.api.CodeService
 import com.example.a_write.databinding.FragmentCodeBinding
 
-class CodeFragment : Fragment() {
+class CodeFragment : Fragment() , CodeCheckView{
     lateinit var binding : FragmentCodeBinding
 
     override fun onCreateView(
@@ -48,7 +50,9 @@ class CodeFragment : Fragment() {
                             flag = true
                             binding.codeNextBt.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.red))
                         }
-                        else -> {}
+                        else -> {flag = false
+                            binding.codeNextBt.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.grayA))
+                        }
                     }
                 }
             }
@@ -62,9 +66,13 @@ class CodeFragment : Fragment() {
 
         binding.codeNextBt.setOnClickListener{
             if(flag){
-                (context as SignUpActivity).supportFragmentManager.beginTransaction()
-                    .replace(R.id.signup_frm, SignUpCompleteFragment())
-                    .commit()
+
+                val code:String =editText1.text.toString()+editText2.text.toString()+editText3.text.toString()+editText4.text.toString()
+
+                //인증 코드 입력 api
+                codeCheck(code)
+
+
             }
             else{
                 Toast.makeText(activity, "잘못된 코드입니다.", Toast.LENGTH_SHORT).show()
@@ -72,5 +80,27 @@ class CodeFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun codeCheck(code: String){
+
+        val SignUpActivity = activity as? SignUpActivity
+        val email = SignUpActivity?.user?.email
+
+        val codeService = CodeService()
+        codeService.setCodeCheckView(this)
+
+        codeService.codeCheck(CodeCheck(email!!, code))
+    }
+
+    override fun onSuccess() {
+        (context as SignUpActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.signup_frm, SignUpCompleteFragment())
+            .commit()
+    }
+
+    override fun onFailure(message: String) {
+        Log.d("CodeCheck", "fail")
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 }
