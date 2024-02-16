@@ -6,27 +6,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.BaseAdapter
 import android.widget.GridView
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.a_write.api.DiaryResult
+import com.example.a_write.api.DiaryService
+import com.example.a_write.api.MyPageDiary
+import com.example.a_write.api.MyPageDiaryListener
+import com.example.a_write.api.MyPageService
 import com.example.a_write.databinding.FragmentProfileBinding
-import java.util.*
-import android.widget.BaseAdapter
-import androidx.core.content.ContextCompat
+import java.util.Calendar
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), MyPageDiaryListener {
 
     private lateinit var binding: FragmentProfileBinding
-    private var diaryData = ArrayList<Diary>()
+    private val myPageService = MyPageService()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        myPageService.getMyPageDiaryList(this)
 
         // 환경설정 아이콘 클릭
         val settingImageView: ImageView = binding.icSetting
@@ -34,19 +41,6 @@ class ProfileFragment : Fragment() {
             val intent = Intent(requireContext(), ProfileSettingActivity::class.java)
             startActivity(intent)
         }
-
-        // 데이터 리스트 생성 더미 데이터
-        diaryData.apply {
-            add(Diary("제목", "내용", "애플","2024.1.18",false))
-            add(Diary("MELTING", "19일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.19",false))
-            add(Diary("POINT", "20일 일기 내용", "ZEROBASEONE(제로베이스원)", "2024.1.20",true))
-        }
-
-        // 인기 일기글 RV
-        val profileTopPostRVAdapter = ProfileTopDiaryRVAdapter(diaryData, requireContext())
-        binding.profileTopPostsRv.adapter = profileTopPostRVAdapter
-        binding.profileTopPostsRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // 캘린더 설정
         val calendar = Calendar.getInstance()
@@ -65,6 +59,7 @@ class ProfileFragment : Fragment() {
                     intent.putExtra("selectedDate", date)
                     intent.putExtra("selectedYear", year)
                     intent.putExtra("selectedMonth", month + 1)
+
                     startActivity(intent)
                 }
             })
@@ -72,6 +67,14 @@ class ProfileFragment : Fragment() {
         calendarGridView.adapter = adapter
 
         return binding.root
+    }
+
+    override fun onDataLoaded(diaries: List<MyPageDiary>) {
+        // 인기 일기글 RV
+        val profileTopPostRVAdapter = ProfileTopDiaryRVAdapter(diaries, requireContext())
+        binding.profileTopPostsRv.adapter = profileTopPostRVAdapter
+        binding.profileTopPostsRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun getDaysOfMonth(year: Int, month: Int): List<String> {
