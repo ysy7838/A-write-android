@@ -28,13 +28,13 @@ class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
         setContentView(R.layout.activity_profile_diary)
 
         // 선택한 날짜 확인
-        val selectedDate = intent.getIntExtra("selectedDate", 0)
+        val selectedDate = intent.getStringExtra("selectedDate")
         val selectedYear = intent.getIntExtra("selectedYear", 0)
         val selectedMonth = intent.getIntExtra("selectedMonth", 0)
 
         Log.d("선택한 날짜 확인", "Selected Date: $selectedYear $selectedMonth $selectedDate")
 
-        if (selectedDate != 0) {
+        if (selectedYear != 0) {
             val formattedDate = "$selectedYear-$selectedMonth-$selectedDate"
             myPageService.getCalenderDiaryDetail(this, formattedDate)
         } else {

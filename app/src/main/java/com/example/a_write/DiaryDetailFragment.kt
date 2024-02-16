@@ -12,8 +12,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-//import com.example.a_write.api.DiaryResult
-import com.example.a_write.database.DiaryResult
+import com.example.a_write.api.DiaryResult
 import com.example.a_write.databinding.FragmentDiaryDetailBinding
 import com.squareup.picasso.Picasso
 

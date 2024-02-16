@@ -20,16 +20,15 @@ class DiaryService {
             override fun onResponse(call: Call<List<DiaryResult>>, response: Response<List<DiaryResult>>) {
                 if (response.isSuccessful) {
                     val diaries: List<DiaryResult>? = response.body()
-                    Log.d("getDiary", diaries.toString())
-
                     if (diaries != null) {
                         listener.onDataLoaded(diaries)
                     }
+                    Log.d("API getHomeList", diaries.toString())
                 }
             }
 
             override fun onFailure(call: Call<List<DiaryResult>>, t: Throwable) {
-                Log.d("getDiary ERROR", "$t")
+                Log.d("API getHomeList ERROR", "$t")
             }
         })
     }
@@ -45,11 +44,12 @@ class DiaryService {
                     if (diaries != null) {
                         listener.onDataLoaded(diaries)
                     }
+                    Log.d("API getHeartList", diaries.toString())
                 }
             }
 
             override fun onFailure(call: Call<List<DiaryResult>>, t: Throwable) {
-                Log.d("getDiary ERROR", "$t")
+                Log.d("API getHeartList ERROR", "$t")
             }
         })
     }
@@ -58,14 +58,14 @@ class DiaryService {
         diaryService.postHeart(diaryId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    println("postDiaryHeart 성공")
+                    Log.d("API postDiaryHeart", "성공")
                 } else {
-                    println("postDiaryHeart 실패")
+                    Log.d("API postDiaryHeart", response.toString())
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("postDiaryHeart ERROR", "$t")
+                Log.d("API postDiaryHeart ERROR", "$t")
             }
         })
     }
@@ -74,14 +74,14 @@ class DiaryService {
         diaryService.deleteHeart(diaryId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    println("deleteDiaryHeart 성공")
+                    Log.d("API deleteDiaryHeart", "성공")
                 } else {
-                    println("deleteDiaryHeart 실패")
+                    Log.d("API deleteDiaryHeart", response.toString())
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("deleteDiaryHeart ERROR", "$t")
+                Log.d("API deleteDiaryHeart ERROR", "$t")
             }
         })
     }

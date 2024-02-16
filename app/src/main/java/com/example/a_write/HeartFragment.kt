@@ -10,7 +10,6 @@ import com.example.a_write.api.DiaryResult
 import com.example.a_write.api.DiaryService
 import com.example.a_write.api.HeartDataListener
 import com.example.a_write.databinding.FragmentHeartBinding
-import java.util.ArrayList
 
 class HeartFragment : Fragment(), HeartDataListener {
 
@@ -39,11 +38,11 @@ class HeartFragment : Fragment(), HeartDataListener {
     }
 
     private fun navigateToAnotherPage(diary: DiaryResult) {
-//        val fragment = DiaryDetailFragment.newInstance(diary)
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.main_frm, fragment)
-//        transaction.addToBackStack(null)
-//        transaction.commit()
+        val fragment = DiaryDetailFragment.newInstance(diary)
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.main_frm, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 }

@@ -61,11 +61,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="22dp"
-                    android:text="애플 님의 프로필"
+                    android:text="@string/empty_title"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/profile_img_iv"
                     app:layout_constraintStart_toEndOf="@+id/profile_img_iv"
+                    app:layout_constraintTop_toTopOf="@+id/profile_img_iv" />
+
+                <TextView
+                    android:id="@+id/nickname_suffix_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text=" 님의 프로필"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/profile_img_iv"
+                    app:layout_constraintStart_toEndOf="@+id/nickname_tv"
                     app:layout_constraintTop_toTopOf="@+id/profile_img_iv" />
 
                 <androidx.recyclerview.widget.RecyclerView
