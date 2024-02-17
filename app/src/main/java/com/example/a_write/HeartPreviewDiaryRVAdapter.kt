@@ -10,6 +10,7 @@ import com.example.a_write.databinding.ItemPreviewDiaryBinding
 
 class HeartPreviewDiaryRVAdapter(
     private val diaries: List<DiaryResult>,
+    private val diaryService: DiaryService,
     private val onItemClicked: (DiaryResult) -> Unit
 ) :
     RecyclerView.Adapter<HeartPreviewDiaryRVAdapter.ViewHolder>() {
@@ -24,23 +25,28 @@ class HeartPreviewDiaryRVAdapter(
                 false
             )
 
-        return ViewHolder(binding)
+        return ViewHolder(binding, diaryService)
     }
 
     override fun onBindViewHolder(holder: HeartPreviewDiaryRVAdapter.ViewHolder, position: Int) {
         holder.bind(diaries[position], this, onItemClicked)
     }
 
-    class ViewHolder(private val binding: ItemPreviewDiaryBinding) :
+    class ViewHolder(
+        private val binding: ItemPreviewDiaryBinding,
+        private val diaryService: DiaryService
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(diary: DiaryResult, adapter: HeartPreviewDiaryRVAdapter, onItemClicked: (DiaryResult) -> Unit) {
+        fun bind(
+            diary: DiaryResult,
+            adapter: HeartPreviewDiaryRVAdapter,
+            onItemClicked: (DiaryResult) -> Unit
+        ) {
             binding.itemDiaryPostTitleTv.text = diary.title
             binding.itemDiaryPostContentTv.text = diary.content
             binding.itemDiaryProfileIv.setImageResource(getProfileImageResourceId(diary.authorProfile))
             binding.itemDiaryHeartOnIv.visibility = if (diary.heartby) View.VISIBLE else View.GONE
             binding.itemDiaryHeartOffIv.visibility = if (diary.heartby) View.GONE else View.VISIBLE
-
-            val diaryService = DiaryService()
 
             binding.itemDiaryHeartOnIv.setOnClickListener {
                 diaryService.deleteDiaryHeart(diary.diaryId)
