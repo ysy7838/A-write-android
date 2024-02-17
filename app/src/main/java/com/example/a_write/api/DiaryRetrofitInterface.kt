@@ -1,6 +1,7 @@
 package com.example.a_write.api
 
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -18,5 +19,8 @@ interface DiaryRetrofitInterface {
 
     @DELETE("/home/hearts/{diaryId}")
     fun deleteHeart(@Path("diaryId") diaryId: Int): Call<Void>
+
+    @POST("/diary/write")
+    fun postDiary(@Body body: DiaryBody): Call<Void>
 
 }

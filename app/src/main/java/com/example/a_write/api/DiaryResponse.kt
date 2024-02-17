@@ -3,6 +3,15 @@ package com.example.a_write.api
 import android.os.Parcel
 import android.os.Parcelable
 
+data class DiaryBody(
+    val title: String = "",
+    val content: String = "",
+    val imgUrl: String? = null,
+    val secret: Boolean = false,
+    val theme: Int = 1,
+    val date: String = "",
+)
+
 data class DiaryResult(
     val diaryId: Int = 0,
     val title: String = "",

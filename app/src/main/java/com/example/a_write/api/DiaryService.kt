@@ -81,4 +81,17 @@ class DiaryService(private val context: Context) {
             }
         })
     }
+
+    fun postDiary(diaryBody: DiaryBody) {
+        diaryService.postDiary(diaryBody).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Log.d("API postDiary", response.toString())
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("API postDiary ERROR", "$t")
+            }
+        })
+    }
+
 }
