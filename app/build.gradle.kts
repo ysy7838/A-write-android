@@ -79,4 +79,5 @@ dependencies {
     implementation ("androidx.core:core-splashscreen:1.1.0-alpha02")
 //    implementation(":react-native-splash-screen")
 
+
 }

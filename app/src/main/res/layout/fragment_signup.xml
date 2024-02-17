@@ -69,7 +69,7 @@
             android:hint="비밀번호"
             android:textColorHint="@color/gray"
 
-            android:inputType="text"
+            android:inputType="textPassword"
             android:textSize="18dp"
             android:textColor="@color/black"
 

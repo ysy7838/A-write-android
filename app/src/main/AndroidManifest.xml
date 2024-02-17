@@ -41,7 +41,21 @@
             android:exported="true" />
         <activity
             android:name=".ResetActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- 여기에 딥 링크를 설정합니다. -->
+                <data
+                    android:host="43.201.161.83"
+                    android:port="8080"
+                    android:scheme="http"
+                    android:pathPrefix="//myPage/users/password-reset" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true"

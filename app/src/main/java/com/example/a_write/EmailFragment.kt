@@ -38,6 +38,9 @@ class EmailFragment :Fragment(), CodeView{
                 Toast.makeText(activity, "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
                 Log.d("CodeSend", email)
             }
+            else if(email!=arguments?.getString("email")?:""){
+                Toast.makeText(activity, "같은 이메일을 작성하셔야 합니다.", Toast.LENGTH_SHORT).show()
+            }
             else codeSend()
 
         }
@@ -55,9 +58,8 @@ class EmailFragment :Fragment(), CodeView{
     }
 
 
-
     private fun getUser(): User {
-        val email: String = binding.emailNameEt.text.toString()
+        val email = arguments?.getString("email")?:""
         val pwd = arguments?.getString("pwd") ?:""
         val name = arguments?.getString("name") ?:""
 
@@ -83,6 +85,7 @@ class EmailFragment :Fragment(), CodeView{
 
         //버튼 생성
         binding.codeNextBt.visibility=View.VISIBLE
+
 
         //버튼 clicker
         binding.codeNextBt.setOnClickListener{
