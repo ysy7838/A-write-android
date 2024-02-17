@@ -46,6 +46,7 @@ class ProfileFragment(private val myPageService: MyPageService) : Fragment(), My
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
+        val formattedMonth = String.format("%02d", month + 1)
 
         val calendarGridView: GridView = binding.calendarGv
 
@@ -58,15 +59,18 @@ class ProfileFragment(private val myPageService: MyPageService) : Fragment(), My
                     val intent = Intent(requireContext(), ProfileDiaryActivity::class.java)
                     intent.putExtra("selectedDate", date)
                     intent.putExtra("selectedYear", year)
-                    intent.putExtra("selectedMonth", month + 1)
-                    val formattedDate = "$year-${month + 1}-$date"
+                    intent.putExtra("selectedMonth", formattedMonth)
+                    val formattedDate = "$year-${formattedMonth}-$date"
+                    Log.d("API date", formattedDate)
 
-                    val isSuccess = myPageService.getCalenderBool(formattedDate)
-                    if (isSuccess) {
-                        startActivity(intent)
-                    } else {
-                        showToast(requireContext(),"날짜에 해당하는 일기가 없습니다.")
+                    myPageService.getCalenderBool(formattedDate) { isSuccess ->
+                        if (isSuccess) {
+                            startActivity(intent)
+                        } else {
+                            showToast(requireContext(), "날짜에 해당하는 일기가 없습니다.")
+                        }
                     }
+
                 }
             })
 

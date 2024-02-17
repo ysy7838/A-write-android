@@ -87,7 +87,8 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
 
     override fun onUserDataLoaded(data: UserInfo) {
         originalProfileId = data.profileImg
-        Log.d("API oP", originalProfileId.toString())
+        selectedProfileId = data.profileImg
+        Log.d("API originalProfileId", originalProfileId.toString())
 
         // 프로필 이미지 띄우기
         profileImageView.setImageResource(getProfileImageResourceId(originalProfileId))
