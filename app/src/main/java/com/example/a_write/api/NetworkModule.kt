@@ -17,7 +17,6 @@ fun getRetrofit(): Retrofit {
 fun getUserRetrofit(context : Context): Retrofit {
     val spf = context.getSharedPreferences("auth2", Context.MODE_PRIVATE)
     val sessionId = spf.getString("Session", "") ?: ""
-    Log.d("API", sessionId)
     val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val original = chain.request()

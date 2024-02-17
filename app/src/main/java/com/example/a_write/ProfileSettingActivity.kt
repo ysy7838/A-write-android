@@ -7,12 +7,11 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.a_write.api.MyPageDiary
 import com.example.a_write.api.MyPageService
 import com.example.a_write.api.MyPageUserInfoListener
 import com.example.a_write.api.UserInfo
 import com.google.gson.JsonObject
+import kotlinx.coroutines.*
 
 class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIconSelectedListener,
     MyPageUserInfoListener {
@@ -57,15 +56,17 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
                 addProperty("profileImg", selectedProfileId)
             }
 
-            if(enteredNickname != null) {
-                myPageService.patchNickname(nicknameData)
+            GlobalScope.launch {
+                val patchNicknameDeferred = async { myPageService.patchNickname(nicknameData) }
+                val patchProfileDeferred = async { myPageService.patchProfile(profileData) }
+
+                patchNicknameDeferred.await()
+                patchProfileDeferred.await()
+
+                delay(10)
+                finish()
             }
 
-            if(originalProfileId != selectedProfileId) {
-                myPageService.patchProfile(profileData)
-            }
-
-            finish()
         }
 
         // 비밀번호 재설정하기 (ResetActivity 실행)
