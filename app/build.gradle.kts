@@ -85,4 +85,11 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore-ktx:23.0.3")
 
+    //Jwt
+    implementation ("com.auth0:java-jwt:3.18.2")
+
+    // Gson Converter
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
 }

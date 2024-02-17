@@ -63,7 +63,7 @@
         android:background="@drawable/background_edit_text"
 
 
-        android:fontFamily="@font/mitr_bold"
+        android:fontFamily="@font/mitr_regular"
         android:hint="이메일"
 
         android:inputType="text"
@@ -147,26 +147,6 @@
         />
 
 
-<!--    api완성 시 삭제-->
-    <Button
-        android:id="@+id/code_next_bt"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-
-        android:text="인증 코드 입력하기"
-        android:fontFamily="@font/mitr_semibold"
-        android:textSize="22dp"
-
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="20dp"
-
-        android:backgroundTint="@color/red"
-        app:cornerRadius="15dp"
-        android:textColor="@color/white"
-        android:layout_marginTop="16dp"
-
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 

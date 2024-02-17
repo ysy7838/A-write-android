@@ -60,7 +60,7 @@
             android:backgroundTint="#BEBEBE"
             android:background="@drawable/round_corner"
             android:padding="15dp"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:id="@+id/password_input"/>
 
         <View
@@ -77,9 +77,10 @@
             android:backgroundTint="#D9D9D9"
             app:cornerRadius="24dp"
             android:textColor="#11193A"
+            android:fontFamily="@font/mitr_semibold"
             android:padding="15dp"
             android:layout_marginTop="16dp"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:id="@+id/login_btn"/>
 
         <LinearLayout
@@ -89,26 +90,36 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
                 android:text="비밀번호를 잊어버리셨나요?"
                 android:textColor="#B5B5B5"
-                android:textSize="20dp"
-                android:gravity="start"/>
+                android:fontFamily="@font/mitr_medium"
+                android:textSize="18dp"
+                android:gravity="start"
+                android:singleLine="true"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
 
             <TextView
                 android:id="@+id/login_pw_tv"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_weight="1"
                 android:text="비밀번호 재설정"
                 android:textColor="#B5B5B5"
                 android:textSize="12dp"
+                android:fontFamily="@font/mitr_regular"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|right"
-
+                android:singleLine="true"
+                android:ellipsize="end"
                 />
+
         </LinearLayout>
 
     </LinearLayout>
