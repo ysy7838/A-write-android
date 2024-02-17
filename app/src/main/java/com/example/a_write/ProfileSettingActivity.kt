@@ -1,5 +1,6 @@
 package com.example.a_write
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -76,6 +77,12 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
             startActivity(resetIntent)
         }
 
+        // 로그아웃 (LoginActivity 실행)
+        val settingLogoutTextView: TextView = findViewById(R.id.setting_logout_tv)
+        settingLogoutTextView.setOnClickListener {
+            logout(this)
+        }
+
         // 탈퇴하기 (DeleteAccountActivity 실행)
         val settingWithdrawTextView: TextView = findViewById(R.id.setting_withdraw_tv)
         settingWithdrawTextView.setOnClickListener {
@@ -83,6 +90,17 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
             startActivity(intent)
         }
 
+    }
+
+    private fun logout(context: Context) {
+        val spf = context.getSharedPreferences("auth2", Context.MODE_PRIVATE)
+        val editor = spf.edit()
+        editor.clear()
+        editor.apply()
+
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
     }
 
     override fun onUserDataLoaded(data: UserInfo) {
