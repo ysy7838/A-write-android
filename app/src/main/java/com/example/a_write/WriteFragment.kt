@@ -20,6 +20,7 @@ class WriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWriteBinding.inflate(inflater, container, false)
+        val selectedThemeIndex = arguments?.getInt("selectedThemeIndex") // pos인덱스 전달
 
         binding.imageButton1.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -37,6 +38,4 @@ class WriteFragment : Fragment() {
             binding.diaryImg.setImageURI(selectedImageUri)
         }
     }
-
-    val index = arguments?.getInt("index")
 }
