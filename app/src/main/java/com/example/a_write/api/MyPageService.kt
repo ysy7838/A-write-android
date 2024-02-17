@@ -38,8 +38,9 @@ class MyPageService(private val context: Context) {
                     if (diaries != null) {
                         listener.onDataLoaded(diaries)
                     }
+                } else {
+                    Log.d("API getMyPageDiaryList", response.toString())
                 }
-                Log.d("API getMyPageDiaryList", response.toString())
             }
 
             override fun onFailure(call: Call<List<MyPageDiary>>, t: Throwable) {
@@ -95,8 +96,9 @@ class MyPageService(private val context: Context) {
                     } else {
                         Log.d("API getUserInfo null", "사용자 정보가 없습니다.")
                     }
+                } else {
+                    Log.d("API getUserInfo", response.toString())
                 }
-                Log.d("API getUserInfo", response.toString())
             }
 
             override fun onFailure(call: Call<UserInfo>, t: Throwable) {
