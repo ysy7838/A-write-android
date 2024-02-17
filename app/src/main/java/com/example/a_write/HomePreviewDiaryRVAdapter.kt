@@ -10,6 +10,7 @@ import com.example.a_write.databinding.ItemPreviewDiaryBinding
 
 class HomePreviewDiaryRVAdapter(
     private val diaries: List<DiaryResult>,
+    private val diaryService: DiaryService,
     private val onItemClicked: (DiaryResult) -> Unit
 ) :
     RecyclerView.Adapter<HomePreviewDiaryRVAdapter.ViewHolder>() {
@@ -19,9 +20,13 @@ class HomePreviewDiaryRVAdapter(
         viewType: Int
     ): HomePreviewDiaryRVAdapter.ViewHolder {
         val binding: ItemPreviewDiaryBinding =
-            ItemPreviewDiaryBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+            ItemPreviewDiaryBinding.inflate(
+                LayoutInflater.from(viewGroup.context),
+                viewGroup,
+                false
+            )
 
-        return ViewHolder(binding)
+        return ViewHolder(binding, diaryService)
     }
 
     override fun onBindViewHolder(holder: HomePreviewDiaryRVAdapter.ViewHolder, position: Int) {
@@ -32,7 +37,10 @@ class HomePreviewDiaryRVAdapter(
         return diaries.size
     }
 
-    class ViewHolder(private val binding: ItemPreviewDiaryBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ItemPreviewDiaryBinding,
+        private val diaryService: DiaryService,
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(diary: DiaryResult, onItemClicked: (DiaryResult) -> Unit) {
             binding.itemDiaryPostTitleTv.text = diary.title
             binding.itemDiaryPostContentTv.text = diary.content
@@ -42,8 +50,6 @@ class HomePreviewDiaryRVAdapter(
             binding.root.setOnClickListener {
                 onItemClicked(diary)
             }
-
-            val diaryService = DiaryService()
 
             // 일기 보관 여부 관리
             binding.itemDiaryHeartOnIv.setOnClickListener {

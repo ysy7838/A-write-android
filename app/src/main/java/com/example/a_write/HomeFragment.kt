@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a_write.api.HomeDataListener
 import com.example.a_write.api.DiaryResult
 import com.example.a_write.api.DiaryService
+import com.example.a_write.api.MyPageService
 import com.example.a_write.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment(), HomeDataListener {
+class HomeFragment(private val diaryService: DiaryService) : Fragment(), HomeDataListener {
 
     private lateinit var binding: FragmentHomeBinding
-    private val diaryService = DiaryService()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,9 +30,10 @@ class HomeFragment : Fragment(), HomeDataListener {
 
     override fun onDataLoaded(diaries: List<DiaryResult>) {
         // 전체 일기글 RV
-        val homePreviewDiaryRVAdapter = HomePreviewDiaryRVAdapter(diaries) { diary: DiaryResult ->
-            navigateToAnotherPage(diary)
-        }
+        val homePreviewDiaryRVAdapter =
+            HomePreviewDiaryRVAdapter(diaries, diaryService) { diary: DiaryResult ->
+                navigateToAnotherPage(diary)
+            }
         binding.homeDiaryPostsRv.adapter = homePreviewDiaryRVAdapter
         binding.homeDiaryPostsRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
