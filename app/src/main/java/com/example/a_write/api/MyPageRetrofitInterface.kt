@@ -10,7 +10,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface MyPageRetrofitInterface {
-    @GET("/myPage/users/heart")
+    @GET("/myPage/users/hearts")
     fun getMyPageDiaries(): Call<List<MyPageDiary>>
 
     @GET("/myPage/users/{date}")
@@ -23,7 +23,7 @@ interface MyPageRetrofitInterface {
     fun updateProfile(@Body profileData: JsonObject): Call<Void>
 
     @PATCH("/myPage/users/nickname")
-    fun updateNickname(@Body profileData: JsonObject): Call<Void>
+    fun updateNickname(@Body nicknameData: JsonObject): Call<Void>
 
     @POST("/myPage/users/withdrawal")
     fun postWithdrawal(@Body passwordData: JsonObject): Call<Void>

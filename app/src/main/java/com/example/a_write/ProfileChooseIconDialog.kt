@@ -3,6 +3,7 @@ package com.example.a_write
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -49,6 +50,7 @@ class ProfileChooseIconDialog(
 
     private fun onSelectIconClick(selectedProfileValue: Int) {
         listener.onIconSelected(selectedProfileValue)
+        Log.d("API selectedProfile", selectedProfileValue.toString())
     }
 
     interface OnIconSelectedListener {

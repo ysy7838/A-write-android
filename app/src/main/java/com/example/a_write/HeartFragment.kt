@@ -10,12 +10,11 @@ import com.example.a_write.api.DiaryResult
 import com.example.a_write.api.DiaryService
 import com.example.a_write.api.HeartDataListener
 import com.example.a_write.databinding.FragmentHeartBinding
-import java.util.ArrayList
 
-class HeartFragment : Fragment(), HeartDataListener {
+class HeartFragment(private val diaryService: DiaryService) : Fragment(), HeartDataListener {
 
     private lateinit var binding: FragmentHeartBinding
-    private val diaryService = DiaryService()
+    private lateinit var heartPreviewDiaryRVAdapter: HeartPreviewDiaryRVAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,27 +22,33 @@ class HeartFragment : Fragment(), HeartDataListener {
     ): View {
         binding = FragmentHeartBinding.inflate(inflater, container, false)
 
+        //  보관함 RV
+        heartPreviewDiaryRVAdapter = HeartPreviewDiaryRVAdapter(
+            emptyList(),
+            diaryService,
+            { diary -> navigateToAnotherPage(diary) },
+            { diaryService.getHeartList(this) }
+        )
+
+        binding.heartDiaryPostsRv.adapter = heartPreviewDiaryRVAdapter
+        binding.heartDiaryPostsRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
         diaryService.getHeartList(this)
 
         return binding.root
     }
 
     override fun onDataLoaded(diaries: List<DiaryResult>) {
-        //  보관함 RV
-        val heartPreviewDiaryRVAdapter = HeartPreviewDiaryRVAdapter(diaries) { diary: DiaryResult ->
-            navigateToAnotherPage(diary)
-        }
-        binding.heartDiaryPostsRv.adapter = heartPreviewDiaryRVAdapter
-        binding.heartDiaryPostsRv.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        heartPreviewDiaryRVAdapter.updateData(diaries)
     }
 
     private fun navigateToAnotherPage(diary: DiaryResult) {
-//        val fragment = DiaryDetailFragment.newInstance(diary)
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.main_frm, fragment)
-//        transaction.addToBackStack(null)
-//        transaction.commit()
+        val fragment = DiaryDetailFragment.newInstance(diary)
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.main_frm, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 }

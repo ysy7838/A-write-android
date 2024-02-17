@@ -4,26 +4,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a_write.database.DiaryResult
-//import com.example.a_write.api.DiaryResult
+import com.example.a_write.api.DiaryResult
 import com.example.a_write.api.DiaryService
 import com.example.a_write.databinding.ItemPreviewDiaryBinding
 
 class HomePreviewDiaryRVAdapter(
+    private val diaries: List<DiaryResult>,
+    private val diaryService: DiaryService,
     private val onItemClicked: (DiaryResult) -> Unit
 ) :
     RecyclerView.Adapter<HomePreviewDiaryRVAdapter.ViewHolder>() {
-
-    private val diaries = mutableListOf<DiaryResult>()
 
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
     ): HomePreviewDiaryRVAdapter.ViewHolder {
         val binding: ItemPreviewDiaryBinding =
-            ItemPreviewDiaryBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+            ItemPreviewDiaryBinding.inflate(
+                LayoutInflater.from(viewGroup.context),
+                viewGroup,
+                false
+            )
 
-        return ViewHolder(binding)
+        return ViewHolder(binding, diaryService)
     }
 
     override fun onBindViewHolder(holder: HomePreviewDiaryRVAdapter.ViewHolder, position: Int) {
@@ -34,13 +37,10 @@ class HomePreviewDiaryRVAdapter(
         return diaries.size
     }
 
-    fun submitList(list: MutableList<DiaryResult>) {
-        diaries.clear()
-        diaries.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    class ViewHolder(private val binding: ItemPreviewDiaryBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ItemPreviewDiaryBinding,
+        private val diaryService: DiaryService,
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(diary: DiaryResult, onItemClicked: (DiaryResult) -> Unit) {
             binding.itemDiaryPostTitleTv.text = diary.title
             binding.itemDiaryPostContentTv.text = diary.content
@@ -50,8 +50,6 @@ class HomePreviewDiaryRVAdapter(
             binding.root.setOnClickListener {
                 onItemClicked(diary)
             }
-
-            val diaryService = DiaryService()
 
             // 일기 보관 여부 관리
             binding.itemDiaryHeartOnIv.setOnClickListener {

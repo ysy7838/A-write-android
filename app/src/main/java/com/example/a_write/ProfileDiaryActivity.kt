@@ -20,24 +20,26 @@ import com.example.a_write.api.MyPageService
 import com.squareup.picasso.Picasso
 
 class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
-    private val myPageService = MyPageService()
+    private lateinit var myPageService: MyPageService
     private var diaryId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_diary)
 
-        // 선택한 날짜 확인
-        val selectedDate = intent.getIntExtra("selectedDate", 0)
+        myPageService = MyPageService(applicationContext)
+
+        // 선택한 날짜 가져오기
+        val selectedDate = intent.getStringExtra("selectedDate")
         val selectedYear = intent.getIntExtra("selectedYear", 0)
-        val selectedMonth = intent.getIntExtra("selectedMonth", 0)
+        val selectedMonth = intent.getStringExtra("selectedMonth")
 
-        Log.d("선택한 날짜 확인", "Selected Date: $selectedYear $selectedMonth $selectedDate")
-
-        if (selectedDate != 0) {
+        if (selectedYear != 0) {
+            // 캘린더를 클릭한 경우
             val formattedDate = "$selectedYear-$selectedMonth-$selectedDate"
             myPageService.getCalenderDiaryDetail(this, formattedDate)
         } else {
+            // 인기 일기 RVA를 클릭한 경우
             val titleTextView: TextView = findViewById(R.id.profile_diary_title_tv)
             val contentTextView: TextView = findViewById(R.id.profile_diary_content_tv)
             val diaryImageView: ImageView = findViewById(R.id.profile_diary_img_iv)
@@ -93,8 +95,10 @@ class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
     override fun onDataLoaded(diary: MyPageDiary) {
         val titleTextView: TextView = findViewById(R.id.profile_diary_title_tv)
         val contentTextView: TextView = findViewById(R.id.profile_diary_content_tv)
+        val diaryImageView: ImageView = findViewById(R.id.profile_diary_img_iv)
         titleTextView.text = diary.title
         contentTextView.text = diary.content
+        Picasso.get().load(diary.imgUrl).into(diaryImageView)
         diaryId = diary.diaryId
     }
 

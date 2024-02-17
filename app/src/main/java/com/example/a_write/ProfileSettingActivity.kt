@@ -1,29 +1,31 @@
 package com.example.a_write
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.a_write.api.MyPageDiary
 import com.example.a_write.api.MyPageService
 import com.example.a_write.api.MyPageUserInfoListener
 import com.example.a_write.api.UserInfo
 import com.google.gson.JsonObject
+import kotlinx.coroutines.*
 
 class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIconSelectedListener,
     MyPageUserInfoListener {
     private lateinit var profileImageView: ImageView
     private var originalProfileId: Int = 1
     private var selectedProfileId: Int = 1
-    private val myPageService = MyPageService()
+    private lateinit var myPageService: MyPageService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_setting)
 
+        myPageService = MyPageService(applicationContext)
         myPageService.getUserInfo(this)
 
         // 프로필 클릭 시 프로필 선택 다이얼로그 실행
@@ -38,31 +40,34 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
             finish()
         }
 
-        // 닉네임 수정 값 관리
-        val nicknameEditText: EditText = findViewById(R.id.setting_nickname_input_etv)
-        val enteredNickname = nicknameEditText.text.toString()
-
-        val nicknameData = JsonObject().apply {
-            addProperty("nickname", enteredNickname)
-        }
-
-        val profileData = JsonObject().apply {
-            addProperty("profileImg", selectedProfileId)
-        }
 
         // 사용자 정보 수정 완료
         val editCompleteBtn: TextView = findViewById(R.id.edit_complete_btn)
         editCompleteBtn.setOnClickListener {
 
-            if(enteredNickname != null) {
-                myPageService.patchNickname(nicknameData)
+            // 닉네임 수정 값 관리
+            val nicknameEditText: EditText = findViewById(R.id.setting_nickname_input_etv)
+            val enteredNickname = nicknameEditText.text.toString()
+
+            val nicknameData = JsonObject().apply {
+                addProperty("nickname", enteredNickname)
             }
 
-            if(originalProfileId != selectedProfileId) {
-                myPageService.patchProfile(profileData)
+            val profileData = JsonObject().apply {
+                addProperty("profileImg", selectedProfileId)
             }
 
-            finish()
+            GlobalScope.launch {
+                val patchNicknameDeferred = async { myPageService.patchNickname(nicknameData) }
+                val patchProfileDeferred = async { myPageService.patchProfile(profileData) }
+
+                patchNicknameDeferred.await()
+                patchProfileDeferred.await()
+
+                delay(10)
+                finish()
+            }
+
         }
 
         // 비밀번호 재설정하기 (ResetActivity 실행)
@@ -70,6 +75,12 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
         settingPasswordResetTextView.setOnClickListener {
             val resetIntent = Intent(this, ResetActivity::class.java)
             startActivity(resetIntent)
+        }
+
+        // 로그아웃 (LoginActivity 실행)
+        val settingLogoutTextView: TextView = findViewById(R.id.setting_logout_tv)
+        settingLogoutTextView.setOnClickListener {
+            logout(this)
         }
 
         // 탈퇴하기 (DeleteAccountActivity 실행)
@@ -81,8 +92,21 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
 
     }
 
-    override fun onDataLoaded(data: UserInfo) {
+    private fun logout(context: Context) {
+        val spf = context.getSharedPreferences("auth2", Context.MODE_PRIVATE)
+        val editor = spf.edit()
+        editor.clear()
+        editor.apply()
+
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
+    }
+
+    override fun onUserDataLoaded(data: UserInfo) {
         originalProfileId = data.profileImg
+        selectedProfileId = data.profileImg
+        Log.d("API originalProfileId", originalProfileId.toString())
 
         // 프로필 이미지 띄우기
         profileImageView.setImageResource(getProfileImageResourceId(originalProfileId))
@@ -93,7 +117,6 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
         emailTextView.text = data.email
 
     }
-
 
     private fun showChooseIconDialog() {
         val profileChooseIconDialog = ProfileChooseIconDialog(this, this, originalProfileId)

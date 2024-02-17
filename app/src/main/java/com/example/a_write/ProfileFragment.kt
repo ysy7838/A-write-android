@@ -3,6 +3,7 @@ package com.example.a_write
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,30 +11,29 @@ import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.a_write.api.DiaryResult
-import com.example.a_write.api.DiaryService
 import com.example.a_write.api.MyPageDiary
 import com.example.a_write.api.MyPageDiaryListener
 import com.example.a_write.api.MyPageService
+import com.example.a_write.api.MyPageUserInfoListener
+import com.example.a_write.api.UserInfo
 import com.example.a_write.databinding.FragmentProfileBinding
 import java.util.Calendar
 
 
-class ProfileFragment : Fragment(), MyPageDiaryListener {
+class ProfileFragment(private val myPageService: MyPageService) : Fragment(), MyPageDiaryListener,
+    MyPageUserInfoListener {
 
     private lateinit var binding: FragmentProfileBinding
-    private val myPageService = MyPageService()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        myPageService.getMyPageDiaryList(this)
 
         // 환경설정 아이콘 클릭
         val settingImageView: ImageView = binding.icSetting
@@ -46,6 +46,7 @@ class ProfileFragment : Fragment(), MyPageDiaryListener {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
+        val formattedMonth = String.format("%02d", month + 1)
 
         val calendarGridView: GridView = binding.calendarGv
 
@@ -58,9 +59,18 @@ class ProfileFragment : Fragment(), MyPageDiaryListener {
                     val intent = Intent(requireContext(), ProfileDiaryActivity::class.java)
                     intent.putExtra("selectedDate", date)
                     intent.putExtra("selectedYear", year)
-                    intent.putExtra("selectedMonth", month + 1)
+                    intent.putExtra("selectedMonth", formattedMonth)
+                    val formattedDate = "$year-${formattedMonth}-$date"
+                    Log.d("API date", formattedDate)
 
-                    startActivity(intent)
+                    myPageService.getCalenderBool(formattedDate) { isSuccess ->
+                        if (isSuccess) {
+                            startActivity(intent)
+                        } else {
+                            showToast(requireContext(), "날짜에 해당하는 일기가 없습니다.")
+                        }
+                    }
+
                 }
             })
 
@@ -69,12 +79,33 @@ class ProfileFragment : Fragment(), MyPageDiaryListener {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        loadData()
+    }
+
+    private fun loadData() {
+        myPageService.getUserInfo(this)
+        myPageService.getMyPageDiaryList(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
     override fun onDataLoaded(diaries: List<MyPageDiary>) {
         // 인기 일기글 RV
         val profileTopPostRVAdapter = ProfileTopDiaryRVAdapter(diaries, requireContext())
         binding.profileTopPostsRv.adapter = profileTopPostRVAdapter
         binding.profileTopPostsRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    override fun onUserDataLoaded(data: UserInfo) {
+        binding.profileImgIv.setImageResource(getProfileImageResourceId(data.profileImg))
+        binding.nicknameTv.text = data.nickname
     }
 
     private fun getDaysOfMonth(year: Int, month: Int): List<String> {
@@ -94,6 +125,10 @@ class ProfileFragment : Fragment(), MyPageDiaryListener {
         }
 
         return daysList
+    }
+
+    private fun showToast(context: Context, message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }

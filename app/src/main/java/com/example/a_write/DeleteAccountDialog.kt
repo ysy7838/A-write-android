@@ -13,7 +13,7 @@ import com.example.a_write.api.MyPageService
 
 class DeleteAccountDialog(context: Context, private val listener: OnBtnSelectedListener) : Dialog(context) {
     private var isConfirmationMode = false
-    private val myPageService = MyPageService()
+    private val myPageService = MyPageService(context)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

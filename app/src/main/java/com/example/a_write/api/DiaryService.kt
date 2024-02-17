@@ -1,5 +1,6 @@
 package com.example.a_write.api
 
+import android.content.Context
 import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,23 +14,25 @@ interface HeartDataListener {
     fun onDataLoaded(diaries: List<DiaryResult>)
 }
 
-class DiaryService {
-    private val diaryService = getRetrofit().create(DiaryRetrofitInterface::class.java)
+class DiaryService(private val context: Context) {
+    private val diaryService = getUserRetrofit(context).create(DiaryRetrofitInterface::class.java)
     fun getHomeList(listener: HomeDataListener) {
         diaryService.getHomeDiaries().enqueue(object : Callback<List<DiaryResult>> {
-            override fun onResponse(call: Call<List<DiaryResult>>, response: Response<List<DiaryResult>>) {
+            override fun onResponse(
+                call: Call<List<DiaryResult>>,
+                response: Response<List<DiaryResult>>
+            ) {
                 if (response.isSuccessful) {
                     val diaries: List<DiaryResult>? = response.body()
-                    Log.d("getDiary", diaries.toString())
-
                     if (diaries != null) {
                         listener.onDataLoaded(diaries)
                     }
+                    Log.d("API getHomeList", diaries.toString())
                 }
             }
 
             override fun onFailure(call: Call<List<DiaryResult>>, t: Throwable) {
-                Log.d("getDiary ERROR", "$t")
+                Log.d("API getHomeList ERROR", "$t")
             }
         })
     }
@@ -45,11 +48,12 @@ class DiaryService {
                     if (diaries != null) {
                         listener.onDataLoaded(diaries)
                     }
+                    Log.d("API getHeartList", diaries.toString())
                 }
             }
 
             override fun onFailure(call: Call<List<DiaryResult>>, t: Throwable) {
-                Log.d("getDiary ERROR", "$t")
+                Log.d("API getHeartList ERROR", "$t")
             }
         })
     }
@@ -57,15 +61,11 @@ class DiaryService {
     fun postDiaryHeart(diaryId: Int) {
         diaryService.postHeart(diaryId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    println("postDiaryHeart 성공")
-                } else {
-                    println("postDiaryHeart 실패")
-                }
+                Log.d("API postDiaryHeart", response.toString())
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("postDiaryHeart ERROR", "$t")
+                Log.d("API postDiaryHeart ERROR", "$t")
             }
         })
     }
@@ -73,16 +73,26 @@ class DiaryService {
     fun deleteDiaryHeart(diaryId: Int) {
         diaryService.deleteHeart(diaryId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    println("deleteDiaryHeart 성공")
-                } else {
-                    println("deleteDiaryHeart 실패")
-                }
+                Log.d("API deleteDiaryHeart", response.toString())
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("deleteDiaryHeart ERROR", "$t")
+                Log.d("API deleteDiaryHeart ERROR", "$t")
             }
         })
     }
+
+    fun postDiary(diaryBody: DiaryBody) {
+        diaryService.postDiary(diaryBody).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Log.d("API postDiary", "Response body: ${response.body()?.toString()}")
+                Log.d("API postDiary", "Response message: ${response.message()}")
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("API postDiary ERROR", "$t")
+            }
+        })
+    }
+
 }

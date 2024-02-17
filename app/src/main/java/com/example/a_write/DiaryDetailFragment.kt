@@ -12,8 +12,8 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-//import com.example.a_write.api.DiaryResult
-import com.example.a_write.database.DiaryResult
+import com.example.a_write.api.DiaryResult
+import com.example.a_write.api.DiaryService
 import com.example.a_write.databinding.FragmentDiaryDetailBinding
 import com.squareup.picasso.Picasso
 
@@ -38,6 +38,8 @@ class DiaryDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDiaryDetailBinding.inflate(inflater, container, false)
+
+        val diaryService = DiaryService(requireActivity())
 
         val diary: DiaryResult? = arguments?.getParcelable(ARG_DIARY)
 
@@ -69,14 +71,14 @@ class DiaryDetailFragment : Fragment() {
 
         heartOffImageView.setOnClickListener {
             diary?.let {
-                it.heartby = true
+                diaryService.postDiaryHeart(it.diaryId)
                 updateHeartVisibility(true)
             }
         }
 
         heartOnImageView.setOnClickListener {
             diary?.let {
-                it.heartby = false
+                diaryService.deleteDiaryHeart(it.diaryId)
                 updateHeartVisibility(false)
             }
         }

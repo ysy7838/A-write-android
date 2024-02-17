@@ -65,8 +65,11 @@ class AuthService {
 
         loginService.login(user).enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                Log.d("API LOGIN/SUCCESS", response.body().toString())
+                val sessionId = response.headers()["Set-Cookie"]
+                Log.d("API sessionId", sessionId.toString())
 
-                Log.d("LOGIN/SUCCESS", response.toString())
+                loginView.onSessionIdReceived(sessionId)
 
                 response.body()?.let { resp ->
                     when(resp.code){

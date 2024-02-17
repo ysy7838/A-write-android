@@ -6,20 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.a_write.api.HomeDataListener
-//import com.example.a_write.api.DiaryResult
+import com.example.a_write.api.DiaryResult
 import com.example.a_write.api.DiaryService
-import com.example.a_write.database.DiaryResult
-import com.example.a_write.database.getHomeDiary
+import com.example.a_write.api.MyPageService
 import com.example.a_write.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class HomeFragment(private val diaryService: DiaryService) : Fragment(), HomeDataListener {
 
     private lateinit var binding: FragmentHomeBinding
-    //    private val diaryService = DiaryService()
-    private lateinit var recyclerView: RecyclerView
-    private var homeRVA: HomePreviewDiaryRVAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,33 +23,21 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-//        diaryService.getHomeList(this)
-
-        // 전체 일기글 RV (db)
-        recyclerView = binding.homeDiaryPostsRv
-        homeRVA = HomePreviewDiaryRVAdapter { diary ->
-            navigateToAnotherPage(diary)
-        }
-
-        getHomeDiary(homeRVA!!)
-
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = homeRVA
-        }
+        diaryService.getHomeList(this)
 
         return binding.root
     }
 
-//    override fun onDataLoaded(diaries: List<DiaryResult>) {
-//        // 전체 일기글 RV (api)
-//        val homePreviewDiaryRVAdapter = HomePreviewDiaryRVAdapter(diaries) { diary: DiaryResult ->
-//            navigateToAnotherPage(diary)
-//        }
-//        binding.homeDiaryPostsRv.adapter = homePreviewDiaryRVAdapter
-//        binding.homeDiaryPostsRv.layoutManager =
-//            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//    }
+    override fun onDataLoaded(diaries: List<DiaryResult>) {
+        // 전체 일기글 RV
+        val homePreviewDiaryRVAdapter =
+            HomePreviewDiaryRVAdapter(diaries, diaryService) { diary: DiaryResult ->
+                navigateToAnotherPage(diary)
+            }
+        binding.homeDiaryPostsRv.adapter = homePreviewDiaryRVAdapter
+        binding.homeDiaryPostsRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    }
 
     private fun navigateToAnotherPage(diary: DiaryResult) {
         val fragment = DiaryDetailFragment.newInstance(diary)

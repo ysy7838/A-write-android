@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
+import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +14,13 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a_write.adapter.ThemeAdapter
 
+
 class ThemeFragment : Fragment() {
     lateinit var rvThemes: RecyclerView
     lateinit var mAdapter: ThemeAdapter
-    val themes = arrayOf("theme1", "theme2", "theme3")
+    lateinit var btnToWriteFragment: Button
+    val themes = arrayOf("theme_blue", "theme_green", "theme_yellow","theme_red")
+    var selectedThemeIndex: Int? = null  // 선택한 테마의 인덱스를 저장할 변수 추가
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,14 +29,19 @@ class ThemeFragment : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_theme, container, false)
         rvThemes = v.findViewById(R.id.rvThemes)
+        btnToWriteFragment = v.findViewById(R.id.btnToWriteFragment)
         rvThemes.setHasFixedSize(true)
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         rvThemes.layoutManager = layoutManager
 
-        val dataThemes = arrayListOf(themes[0],themes[1],themes[2])
+        val dataThemes = arrayListOf(themes[0],themes[1],themes[2],themes[3]) //테마리스트
 
-        mAdapter = ThemeAdapter(dataThemes, requireActivity())
+        mAdapter = ThemeAdapter(dataThemes, requireActivity()) { position ->
+            // 아이템 클릭 이벤트 처리
+            btnToWriteFragment.isEnabled = true
+            selectedThemeIndex = position
+        }
         rvThemes.adapter = mAdapter
         rvThemes.setPadding(130,100,130,100)
 
@@ -50,6 +59,9 @@ class ThemeFragment : Fragment() {
                 super.onScrollStateChanged(recyclerView, newState)
                 val v = snapHelper.findSnapView(layoutManager)
                 val pos = layoutManager.getPosition(v!!)
+                // 'pos' is the index of the center item
+                selectedThemeIndex = pos
+
                 val viewHolder = rvThemes.findViewHolderForAdapterPosition(pos)
                 val rl1 = viewHolder?.itemView?.findViewById<RelativeLayout>(R.id.rl1)
 
@@ -60,6 +72,18 @@ class ThemeFragment : Fragment() {
                 }
             }
         })
+
+        btnToWriteFragment.setOnClickListener {
+            selectedThemeIndex?.let { index ->
+                (activity as? WriteActivity)?.moveToWriteFragment(index)
+            }
+        }
+
         return v
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
 }
