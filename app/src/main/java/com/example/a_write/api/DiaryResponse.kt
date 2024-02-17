@@ -2,14 +2,28 @@ package com.example.a_write.api
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 data class DiaryBody(
-    val title: String = "",
-    val content: String = "",
-    val imgUrl: String? = null,
-    val secret: Boolean = false,
-    val theme: Int = 1,
-    val date: String = "",
+    @SerializedName("title")
+    val title: RequestBody,
+
+    @SerializedName("content")
+    val content: RequestBody,
+
+    @SerializedName("imgUrl")
+    val imgUrl: MultipartBody.Part?,
+
+    @SerializedName("secret")
+    val secret: RequestBody,
+
+    @SerializedName("theme")
+    val theme: RequestBody,
+
+    @SerializedName("date")
+    val date: RequestBody
 )
 
 data class DiaryResult(
@@ -57,4 +71,6 @@ data class DiaryResult(
             return arrayOfNulls(size)
         }
     }
+
+
 }

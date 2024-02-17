@@ -85,7 +85,8 @@ class DiaryService(private val context: Context) {
     fun postDiary(diaryBody: DiaryBody) {
         diaryService.postDiary(diaryBody).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Log.d("API postDiary", response.toString())
+                Log.d("API postDiary", "Response body: ${response.body()?.toString()}")
+                Log.d("API postDiary", "Response message: ${response.message()}")
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {

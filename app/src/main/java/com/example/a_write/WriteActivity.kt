@@ -8,6 +8,12 @@ class WriteActivity : AppCompatActivity() {
     private var date: Int? = null
     private var year: Int? = null
     private var month: Int? = null
+
+    // 다른 fragment로 값을 전달하기 위해 getter 메소드 추가
+    val selectedDate: Int? get() = date
+    val selectedYear: Int? get() = year
+    val selectedMonth: Int? get() = month
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write)
