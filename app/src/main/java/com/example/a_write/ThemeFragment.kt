@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.widget.Button
 import android.widget.RelativeLayout
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -76,7 +73,11 @@ class ThemeFragment : Fragment() {
             }
         })
 
-        //pos값을 가지고 WirteFragment로 이동하게 만들어야
+        btnToWriteFragment.setOnClickListener {
+            selectedThemeIndex?.let { index ->
+                (activity as? WriteActivity)?.moveToWriteFragment(index)
+            }
+        }
 
         return v
     }

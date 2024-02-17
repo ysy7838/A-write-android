@@ -35,5 +35,21 @@ class WriteActivity : AppCompatActivity() {
 
     를 통해 접근 가능합니다.
     */
+
+    fun moveToWriteFragment(pos: Int) {
+        val fragment = WriteFragment().apply {
+            arguments = Bundle().apply {
+                putInt("selectedThemeIndex", pos)
+            }
+        }
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.write_activity_lo, fragment)
+            .addToBackStack(null)
+            .commitAllowingStateLoss()
+    }
+
+
+
 }
 
