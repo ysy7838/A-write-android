@@ -29,17 +29,17 @@ class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
 
         myPageService = MyPageService(applicationContext)
 
-        // 선택한 날짜 확인
+        // 선택한 날짜 가져오기
         val selectedDate = intent.getStringExtra("selectedDate")
         val selectedYear = intent.getIntExtra("selectedYear", 0)
-        val selectedMonth = intent.getIntExtra("selectedMonth", 0)
-
-        Log.d("선택한 날짜 확인", "Selected Date: $selectedYear $selectedMonth $selectedDate")
+        val selectedMonth = intent.getStringExtra("selectedMonth")
 
         if (selectedYear != 0) {
+            // 캘린더를 클릭한 경우
             val formattedDate = "$selectedYear-$selectedMonth-$selectedDate"
             myPageService.getCalenderDiaryDetail(this, formattedDate)
         } else {
+            // 인기 일기 RVA를 클릭한 경우
             val titleTextView: TextView = findViewById(R.id.profile_diary_title_tv)
             val contentTextView: TextView = findViewById(R.id.profile_diary_content_tv)
             val diaryImageView: ImageView = findViewById(R.id.profile_diary_img_iv)
@@ -95,8 +95,10 @@ class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
     override fun onDataLoaded(diary: MyPageDiary) {
         val titleTextView: TextView = findViewById(R.id.profile_diary_title_tv)
         val contentTextView: TextView = findViewById(R.id.profile_diary_content_tv)
+        val diaryImageView: ImageView = findViewById(R.id.profile_diary_img_iv)
         titleTextView.text = diary.title
         contentTextView.text = diary.content
+        Picasso.get().load(diary.imgUrl).into(diaryImageView)
         diaryId = diary.diaryId
     }
 

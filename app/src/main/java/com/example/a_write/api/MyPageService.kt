@@ -67,22 +67,19 @@ class MyPageService(private val context: Context) {
         })
     }
 
-    fun getCalenderBool(date: String): Boolean {
-        var isSuccess = false
+    fun getCalenderBool(date: String, callback: (Boolean) -> Unit) {
         myPageService.getCalenderDiary(date).enqueue(object : Callback<MyPageDiary> {
             override fun onResponse(call: Call<MyPageDiary>, response: Response<MyPageDiary>) {
-                if (response.isSuccessful) {
-                    isSuccess = true
-                }
-                Log.d("API getCalenderDiaryDetail", response.toString())
+                val isSuccess = response.code() == 200
+                Log.d("API getCalenderBool", response.toString())
+                callback(isSuccess)
             }
 
             override fun onFailure(call: Call<MyPageDiary>, t: Throwable) {
-                isSuccess = false
-                Log.d("API getCalenderDiaryDetail ERROR", "$t")
+                Log.d("API getCalenderBool ERROR", "$t")
+                callback(false)
             }
         })
-        return isSuccess
     }
 
     fun getUserInfo(listener: MyPageUserInfoListener) {
