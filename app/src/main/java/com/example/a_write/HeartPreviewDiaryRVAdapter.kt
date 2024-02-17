@@ -7,13 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a_write.api.DiaryResult
 import com.example.a_write.api.DiaryService
 import com.example.a_write.databinding.ItemPreviewDiaryBinding
+import kotlinx.coroutines.*
 
 class HeartPreviewDiaryRVAdapter(
-    private val diaries: List<DiaryResult>,
+    private var diaries: List<DiaryResult>,
     private val diaryService: DiaryService,
-    private val onItemClicked: (DiaryResult) -> Unit
+    private val onItemClicked: (DiaryResult) -> Unit,
+    private val onLikeClicked: () -> Unit
 ) :
     RecyclerView.Adapter<HeartPreviewDiaryRVAdapter.ViewHolder>() {
+    fun updateData(newDiaries: List<DiaryResult>) {
+        diaries = newDiaries
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
@@ -32,7 +39,7 @@ class HeartPreviewDiaryRVAdapter(
         holder.bind(diaries[position], this, onItemClicked)
     }
 
-    class ViewHolder(
+    inner class ViewHolder(
         private val binding: ItemPreviewDiaryBinding,
         private val diaryService: DiaryService
     ) :
@@ -49,7 +56,12 @@ class HeartPreviewDiaryRVAdapter(
             binding.itemDiaryHeartOffIv.visibility = if (diary.heartby) View.GONE else View.VISIBLE
 
             binding.itemDiaryHeartOnIv.setOnClickListener {
-                diaryService.deleteDiaryHeart(diary.diaryId)
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.IO) {
+                        diaryService.deleteDiaryHeart(diary.diaryId)
+                    }
+                    onLikeClicked()
+                }
             }
 
             binding.root.setOnClickListener {

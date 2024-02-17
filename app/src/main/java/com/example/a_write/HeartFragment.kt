@@ -14,6 +14,7 @@ import com.example.a_write.databinding.FragmentHeartBinding
 class HeartFragment(private val diaryService: DiaryService) : Fragment(), HeartDataListener {
 
     private lateinit var binding: FragmentHeartBinding
+    private lateinit var heartPreviewDiaryRVAdapter: HeartPreviewDiaryRVAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,20 +22,25 @@ class HeartFragment(private val diaryService: DiaryService) : Fragment(), HeartD
     ): View {
         binding = FragmentHeartBinding.inflate(inflater, container, false)
 
+        //  보관함 RV
+        heartPreviewDiaryRVAdapter = HeartPreviewDiaryRVAdapter(
+            emptyList(),
+            diaryService,
+            { diary -> navigateToAnotherPage(diary) },
+            { diaryService.getHeartList(this) }
+        )
+
+        binding.heartDiaryPostsRv.adapter = heartPreviewDiaryRVAdapter
+        binding.heartDiaryPostsRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
         diaryService.getHeartList(this)
 
         return binding.root
     }
 
     override fun onDataLoaded(diaries: List<DiaryResult>) {
-        //  보관함 RV
-        val heartPreviewDiaryRVAdapter =
-            HeartPreviewDiaryRVAdapter(diaries, diaryService) { diary: DiaryResult ->
-                navigateToAnotherPage(diary)
-            }
-        binding.heartDiaryPostsRv.adapter = heartPreviewDiaryRVAdapter
-        binding.heartDiaryPostsRv.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        heartPreviewDiaryRVAdapter.updateData(diaries)
     }
 
     private fun navigateToAnotherPage(diary: DiaryResult) {

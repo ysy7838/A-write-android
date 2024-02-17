@@ -73,7 +73,7 @@ class DiaryService(private val context: Context) {
     fun deleteDiaryHeart(diaryId: Int) {
         diaryService.deleteHeart(diaryId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Log.d("API postDiaryHeart", response.toString())
+                Log.d("API deleteDiaryHeart", response.toString())
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
