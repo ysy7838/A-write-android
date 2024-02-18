@@ -25,14 +25,7 @@
         <item name="postSplashScreenTheme">@style/SplashTheme</item>
     </style>
 
-    //삭제예정
-<!--    <style name="DialogStyle" parent="@android:style/Theme.Dialog">-->
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-<!--        <item name="android:windowSoftInputMode">stateAlwaysVisible|adjustResize</item>-->
-<!--        <item name="android:windowMinWidthMajor">100%</item>-->
-<!--        <item name="android:windowMinWidthMinor">100%</item>-->
 
-<!--    </style>-->
 
     <style name="PinEntryStyle">
         <item name="android:layout_width">72dp</item>

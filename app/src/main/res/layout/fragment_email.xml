@@ -18,7 +18,7 @@
 
             android:text="이메일 인증"
             android:layout_marginTop="65dp"
-            android:textStyle="bold"
+            android:fontFamily="@font/mitr_semibold"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,8 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
 
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textColor="@color/black"
+            android:fontFamily="@font/mitr_semibold"
 
             android:text="'인증 메일 보내기' 버튼을 눌러 주세요."
             android:layout_marginTop="137dp"
@@ -58,9 +59,10 @@
                 android:layout_marginStart="26dp"
 
                 android:text="등록한 이메일 주소로 인증 메일을 보내드릴게요.\n24시간 안에 링크를 열어 이메일 인증을 완료해주세요."
+                android:textSize="15sp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/mitr_semibold"
 
-                android:textSize="14sp"
 
                 android:textStyle="bold"
 
@@ -95,13 +97,14 @@
 
 
                 android:hint="이메일"
+                android:fontFamily="@font/mitr_medium"
                 android:inputType="text"
 
                 android:paddingStart="15dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
 
-                android:textSize="18dp"
+                android:textSize="20dp"
                 />
 
             <Button
@@ -142,7 +145,7 @@
 
                 android:background="@drawable/background_text"
 
-                android:textStyle="bold"
+                android:fontFamily="@font/mitr_semibold"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -162,6 +165,7 @@
 
                 android:layout_marginTop="24dp"
 
+                android:fontFamily="@font/mitr_medium"
                 android:textSize="12sp"
                 android:paddingTop="5sp"
                 android:paddingStart="12sp"
@@ -188,13 +192,14 @@
         android:fontFamily="@font/mitr_semibold"
         android:textSize="22dp"
 
+
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="20dp"
 
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/grayC"
         app:cornerRadius="15dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:layout_marginTop="16dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
