@@ -21,6 +21,7 @@ class WriteFragment : Fragment() {
     private val REQUEST_CODE = 100
     private lateinit var binding: FragmentWriteBinding
     private var imagePath: Uri? = null
+    private var secret = "false"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,26 +58,47 @@ class WriteFragment : Fragment() {
         }
 
         binding.saveBtn.setOnClickListener {
-            val diaryData = mapOf(
-                "title" to binding.inputDiaryTitle.text.toString(),
-                "content" to binding.inputDiaryContent.text.toString(),
-                "secret" to "false",
-                "theme" to selectedThemeIndex.toString(),
-                "date" to "$year-$formattedMonth-$date"
-            )
+            // FrameLayout을 보여주고 저장하기 버튼을 숨깁니다.
+            binding.saveBtn.visibility = View.GONE
+            binding.overlayLayout.visibility = View.VISIBLE
 
-            val filePath = imagePath?.let { getPathFromUri(requireContext(), it) }
-            val file = File(filePath ?: "")
+            // 공개 버튼과 비공개 버튼의 click listener를 설정합니다.
+            binding.publicButton.setOnClickListener {
+                secret = "false"
+                val diaryData = mapOf(
+                    "title" to binding.inputDiaryTitle.text.toString(),
+                    "content" to binding.inputDiaryContent.text.toString(),
+                    "secret" to secret,
+                    "theme" to selectedThemeIndex.toString(),
+                    "date" to "$year-$formattedMonth-$date"
+                )
 
-            context?.let {
-                val diaryService = DiaryService(it)
-                diaryService.postDiary(diaryData, file)
+                val filePath = imagePath?.let { getPathFromUri(requireContext(), it) }
+                val file = File(filePath ?: "")
+
+                context?.let {
+                    val diaryService = DiaryService(it)
+                    diaryService.postDiary(diaryData, file)
+                }
             }
+            binding.privateButton.setOnClickListener {
+                secret = "true"
+                val diaryData = mapOf(
+                    "title" to binding.inputDiaryTitle.text.toString(),
+                    "content" to binding.inputDiaryContent.text.toString(),
+                    "secret" to secret,
+                    "theme" to selectedThemeIndex.toString(),
+                    "date" to "$year-$formattedMonth-$date"
+                )
 
+                val filePath = imagePath?.let { getPathFromUri(requireContext(), it) }
+                val file = File(filePath ?: "")
 
-            //LoadingFragment 보여주고 싶을때 추가하시면 됩니다/ 버튼눌렀을때 마지막에 실행되어야할것같아서 여기넣었습니다
-            showLoading()
-
+                context?.let {
+                    val diaryService = DiaryService(it)
+                    diaryService.postDiary(diaryData, file)
+                }
+            }
         }
 
         return binding.root
@@ -110,7 +132,8 @@ class WriteFragment : Fragment() {
             requireActivity(),
             arrayOf(
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_MEDIA_IMAGES
             ),
             PERMISSION_CODE
         )
