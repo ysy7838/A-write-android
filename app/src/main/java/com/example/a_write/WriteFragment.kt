@@ -6,11 +6,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.example.a_write.api.DiaryService
 import com.example.a_write.databinding.FragmentWriteBinding
 import java.io.File
@@ -72,6 +72,11 @@ class WriteFragment : Fragment() {
                 val diaryService = DiaryService(it)
                 diaryService.postDiary(diaryData, file)
             }
+
+
+            //LoadingFragment 보여주고 싶을때 추가하시면 됩니다/ 버튼눌렀을때 마지막에 실행되어야할것같아서 여기넣었습니다
+            showLoading()
+
         }
 
         return binding.root
@@ -114,6 +119,28 @@ class WriteFragment : Fragment() {
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, REQUEST_CODE)
+    }
+
+
+    //Loading화면 띄우기
+    private fun showLoading() {
+        val fragmentManager = (context as WriteActivity).supportFragmentManager
+        val loadingFragment = LoadingFragment.newInstance("", "")
+        fragmentManager.beginTransaction()
+            .add(R.id.write_activity_lo, loadingFragment, "LOADING_FRAGMENT")
+            .commitAllowingStateLoss()
+    }
+
+    //Loading화면 닫기. onActivityResult에서 request정리하시는 것 같은데
+    //onResponse 나 onFailure, 두 상황 모두에 이 함수가 들어가야합니다.
+    private fun hideLoading() {
+        val fragmentManager = (context as WriteActivity).supportFragmentManager
+        val loadingFragment = fragmentManager.findFragmentByTag("LOADING_FRAGMENT")
+        if (loadingFragment != null) {
+            fragmentManager.beginTransaction()
+                .remove(loadingFragment)
+                .commitAllowingStateLoss()
+        }
     }
 }
 

@@ -6,14 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
-
 class SplashActivity :AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
 
         installSplashScreen()
 
         // Showing the React Native splash screen
-//        SplashScreen.show(this, true)
+//        androidx.core.splashscreen.SplashScreen.installSplashScreen(this);
 //        org.devio.rn.splashscreen.SplashScreen.show(this, true); // custom splash screen from react-native-splash-screen library
 
         // Call to the superclass' onCreate method
