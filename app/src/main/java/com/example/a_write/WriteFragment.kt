@@ -40,6 +40,10 @@ class WriteFragment : Fragment() {
         val year = WriteActivity?.selectedYear
         val month = WriteActivity?.selectedMonth
 
+        binding.writeHomeArrowIv.setOnClickListener { //뒤로가기 버튼
+            activity?.onBackPressed()
+        }
+
         // selectedThemeIndex에 따라 배경 이미지 변경 (후에 디자인이 추가된 테마가 만들어진다면 변경하면 됨)
         val backgroundDrawable = when (selectedThemeIndex) {
             0 -> R.drawable.theme_background_blue
