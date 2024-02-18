@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.ImageView
@@ -18,6 +17,7 @@ import com.example.a_write.api.MyPageCalenderDiaryListener
 import com.example.a_write.api.MyPageDiary
 import com.example.a_write.api.MyPageService
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.*
 
 class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
     private lateinit var myPageService: MyPageService
@@ -67,8 +67,11 @@ class ProfileDiaryActivity : AppCompatActivity(), MyPageCalenderDiaryListener {
 
         // 일기 삭제하기 (삭제 API 호출 후 이전 화면으로 이동)
         deleteButtonLayout.setOnClickListener {
-            myPageService.deleteDiary(diaryId)
-            finish()
+            GlobalScope.launch(Dispatchers.Main) {
+                myPageService.deleteDiary(diaryId)
+                delay(100)
+                finish()
+            }
         }
 
         // 일기 테마 적용하기

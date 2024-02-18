@@ -2,9 +2,14 @@ package com.example.a_write.api
 
 import android.content.Context
 import android.util.Log
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 interface HomeDataListener {
     fun onDataLoaded(diaries: List<DiaryResult>)
@@ -82,17 +87,25 @@ class DiaryService(private val context: Context) {
         })
     }
 
-    fun postDiary(diaryBody: DiaryBody) {
-        Log.d("API postDiary", "Request body: $diaryBody")  // 추가된 로그
-        diaryService.postDiary(diaryBody).enqueue(object : Callback<Void> {
+    fun postDiary(diaryData: Map<String, Any>, imageFile: File) {
+        val title = diaryData["title"].toString()
+        val content = diaryData["content"].toString()
+        val secret = diaryData["secret"].toString()
+        val theme = diaryData["theme"].toString()
+        val date = diaryData["date"].toString()
+
+        val titleRequestBody = title.toRequestBody("text/plain".toMediaTypeOrNull())
+        val contentRequestBody = content.toRequestBody("text/plain".toMediaTypeOrNull())
+        val secretRequestBody = secret.toRequestBody("text/plain".toMediaTypeOrNull())
+        val themeRequestBody = theme.toRequestBody("text/plain".toMediaTypeOrNull())
+        val dateRequestBody = date.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        val imageRequestBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val imagePart = MultipartBody.Part.createFormData("imgUrl", imageFile.name, imageRequestBody)
+
+        diaryService.postDiary(titleRequestBody, contentRequestBody, imagePart, secretRequestBody, themeRequestBody, dateRequestBody).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                /*Log.d("API postDiary", "Response body: ${response.body()?.toString()}")
-                Log.d("API postDiary", "Response message: ${response.message()}")*/
-                if (response.isSuccessful) {
-                    Log.d("API postDiary", "Response successful. Code: ${response.code()}")
-                } else {
-                    Log.d("API postDiary", "Response not successful. Code: ${response.code()}")
-                }
+                Log.d("API postDiary", "Code: ${response.code()}")
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {

@@ -60,6 +60,7 @@ class HeartPreviewDiaryRVAdapter(
                     withContext(Dispatchers.IO) {
                         diaryService.deleteDiaryHeart(diary.diaryId)
                     }
+                    delay(100)
                     onLikeClicked()
                 }
             }
