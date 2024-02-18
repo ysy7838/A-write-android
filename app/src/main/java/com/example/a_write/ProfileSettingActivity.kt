@@ -64,7 +64,7 @@ class ProfileSettingActivity : AppCompatActivity(), ProfileChooseIconDialog.OnIc
                 patchNicknameDeferred.await()
                 patchProfileDeferred.await()
 
-                delay(10)
+                delay(100)
                 finish()
             }
 
