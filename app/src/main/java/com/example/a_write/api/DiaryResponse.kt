@@ -2,18 +2,6 @@ package com.example.a_write.api
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import okhttp3.MultipartBody
-
-data class DiaryBody(
-    @SerializedName("title") val title: String,
-    @SerializedName("content") val content: String,
-    @SerializedName("imgUrl") val imgUrl: MultipartBody.Part?,
-    @SerializedName("secret") val secret: String,
-    @SerializedName("theme") val theme: String,
-    @SerializedName("date") val date: String
-)
-
 
 data class DiaryResult(
     val diaryId: Int = 0,
