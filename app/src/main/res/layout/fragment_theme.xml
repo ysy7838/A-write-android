@@ -1,58 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="50dp"
-    android:padding="25dp"
     tools:context=".HomeFragment">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="어떤 테마를 좋아하세요?"
-        android:textSize="26sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:text="4개의 테마 중 하나를 선택해주세요!"
-        android:textSize="20sp" />
+    <!--뒤로가기버튼-->
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="29dp"
+        android:layout_height="36dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="18dp"
+        android:clipToOutline="true"
+        android:src="@drawable/ic_arrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnToWriteFragment"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-
-        android:text="다음으로"
-        android:fontFamily="@font/mitr_bold"
-        android:textSize="20dp"
-
-        android:layout_marginBottom="20dp"
-
-        android:backgroundTint="@color/red"
-        app:cornerRadius="15dp"
-        android:textColor="@color/white"
-        android:layout_marginTop="16dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvThemes"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btnToWriteFragment"
-        android:layout_below="@id/subtitle"
-        android:layout_centerInParent="true"
-        android:clipToPadding="false"
-        android:foregroundGravity="center"
-        android:overScrollMode="never" />
+        android:layout_marginTop="50dp"
+        android:padding="25dp"
+        app:layout_constraintTop_toBottomOf="@id/back">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="어떤 테마를 좋아하세요?"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:text="4개의 테마 중 하나를 선택해주세요!"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btnToWriteFragment"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+
+            android:text="다음으로"
+            android:fontFamily="@font/mitr_bold"
+            android:textSize="20dp"
+
+            android:layout_marginBottom="20dp"
+
+            android:backgroundTint="@color/red"
+            app:cornerRadius="15dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvThemes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btnToWriteFragment"
+            android:layout_below="@id/subtitle"
+            android:layout_centerInParent="true"
+            android:clipToPadding="false"
+            android:foregroundGravity="center"
+            android:overScrollMode="never" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,27 +4,16 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 data class DiaryBody(
-    @SerializedName("title")
-    val title: RequestBody,
-
-    @SerializedName("content")
-    val content: RequestBody,
-
-    @SerializedName("imgUrl")
-    val imgUrl: MultipartBody.Part?,
-
-    @SerializedName("secret")
-    val secret: RequestBody,
-
-    @SerializedName("theme")
-    val theme: RequestBody,
-
-    @SerializedName("date")
-    val date: RequestBody
+    @SerializedName("title") val title: String,
+    @SerializedName("content") val content: String,
+    @SerializedName("imgUrl") val imgUrl: MultipartBody.Part?,
+    @SerializedName("secret") val secret: String,
+    @SerializedName("theme") val theme: String,
+    @SerializedName("date") val date: String
 )
+
 
 data class DiaryResult(
     val diaryId: Int = 0,
