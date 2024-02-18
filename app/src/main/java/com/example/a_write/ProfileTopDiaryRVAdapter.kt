@@ -43,12 +43,15 @@ class ProfileTopDiaryRVAdapter(private val diaries: List<MyPageDiary>, private v
             Picasso.get().load(diary.imgUrl).into(binding.itemPostCoverImgIv)
         }
 
-        private fun formatDate(inputDate: String): String {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("yyyy.M.d", Locale.getDefault())
+        private fun formatDate(inputDate: String?): String {
+            if (inputDate != null) {
+                val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val outputFormat = SimpleDateFormat("yyyy.M.d", Locale.getDefault())
 
-            val date = inputFormat.parse(inputDate)
-            return outputFormat.format(date!!)
+                val date = inputFormat.parse(inputDate)
+                return outputFormat.format(date!!)
+            }
+            return ""
         }
     }
 
