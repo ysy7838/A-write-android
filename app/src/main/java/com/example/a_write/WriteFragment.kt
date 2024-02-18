@@ -7,10 +7,10 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AlertDialog
 import com.example.a_write.api.DiaryBody
 import com.example.a_write.api.DiaryService
@@ -77,6 +77,11 @@ class WriteFragment : Fragment() {
                 val diaryService = DiaryService(it)
                 diaryService.postDiary(diaryBody)
             }
+
+
+            //LoadingFragment 보여주고 싶을때 추가하시면 됩니다/ 버튼눌렀을때 마지막에 실행되어야할것같아서 여기넣었습니다
+            showLoading()
+
         }
 
         return binding.root
@@ -104,6 +109,28 @@ class WriteFragment : Fragment() {
             return cursor?.getString(columnIndex!!)
         } finally {
             cursor?.close()
+        }
+    }
+
+
+    //Loading화면 띄우기
+    private fun showLoading() {
+        val fragmentManager = (context as WriteActivity).supportFragmentManager
+        val loadingFragment = LoadingFragment.newInstance("", "")
+        fragmentManager.beginTransaction()
+            .add(R.id.write_activity_lo, loadingFragment, "LOADING_FRAGMENT")
+            .commitAllowingStateLoss()
+    }
+
+    //Loading화면 닫기. onActivityResult에서 request정리하시는 것 같은데
+    //onResponse 나 onFailure, 두 상황 모두에 이 함수가 들어가야합니다.
+    private fun hideLoading() {
+        val fragmentManager = (context as WriteActivity).supportFragmentManager
+        val loadingFragment = fragmentManager.findFragmentByTag("LOADING_FRAGMENT")
+        if (loadingFragment != null) {
+            fragmentManager.beginTransaction()
+                .remove(loadingFragment)
+                .commitAllowingStateLoss()
         }
     }
 }
