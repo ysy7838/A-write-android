@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,12 @@ class ThemeFragment : Fragment() {
         rvThemes = v.findViewById(R.id.rvThemes)
         btnToWriteFragment = v.findViewById(R.id.btnToWriteFragment)
         rvThemes.setHasFixedSize(true)
+
+        // 뒤로가기 버튼
+        val backButton = v.findViewById<ImageView>(R.id.back)
+        backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         rvThemes.layoutManager = layoutManager
