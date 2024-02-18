@@ -48,6 +48,7 @@ class ResetSendFragment : Fragment(), ResetEmailView {
 
     override fun onSuccess(email:String) {
         Toast.makeText(activity, "메일 발송 성공", Toast.LENGTH_SHORT).show()
+
         context?.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)?.edit()?.apply {
             putString("emailKey", email)
             apply()
@@ -56,8 +57,11 @@ class ResetSendFragment : Fragment(), ResetEmailView {
 
     override fun onFailure(message: String) {
         Log.d("EmailCheck", "fail")
+
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
+
+
 
 
 }
