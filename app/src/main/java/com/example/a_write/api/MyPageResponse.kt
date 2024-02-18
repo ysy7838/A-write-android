@@ -13,7 +13,7 @@ data class MyPageDiary(
     val authorProfile: Int,
     var heartby: Boolean,
     val theme: Int,
-    val ymlCreatedAt: String,
+    val date: String,
     val heartsCount: Int
 ) : Serializable
 

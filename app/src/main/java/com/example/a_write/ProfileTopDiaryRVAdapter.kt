@@ -39,7 +39,7 @@ class ProfileTopDiaryRVAdapter(private val diaries: List<MyPageDiary>, private v
     class ViewHolder(private val binding: ItemTopDiaryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(diary: MyPageDiary){
             binding.itemPostTitleTv.text = diary.title
-            binding.itemPostTimeTv.text = formatDate(diary.ymlCreatedAt)
+            binding.itemPostTimeTv.text = formatDate(diary.date)
             Picasso.get().load(diary.imgUrl).into(binding.itemPostCoverImgIv)
         }
 
