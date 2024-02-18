@@ -83,10 +83,16 @@ class DiaryService(private val context: Context) {
     }
 
     fun postDiary(diaryBody: DiaryBody) {
+        Log.d("API postDiary", "Request body: $diaryBody")  // 추가된 로그
         diaryService.postDiary(diaryBody).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Log.d("API postDiary", "Response body: ${response.body()?.toString()}")
-                Log.d("API postDiary", "Response message: ${response.message()}")
+                /*Log.d("API postDiary", "Response body: ${response.body()?.toString()}")
+                Log.d("API postDiary", "Response message: ${response.message()}")*/
+                if (response.isSuccessful) {
+                    Log.d("API postDiary", "Response successful. Code: ${response.code()}")
+                } else {
+                    Log.d("API postDiary", "Response not successful. Code: ${response.code()}")
+                }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
