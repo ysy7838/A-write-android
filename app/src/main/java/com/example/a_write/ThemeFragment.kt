@@ -67,7 +67,7 @@ class ThemeFragment : Fragment() {
                 val v = snapHelper.findSnapView(layoutManager)
                 val pos = layoutManager.getPosition(v!!)
                 // 'pos' is the index of the center item
-                selectedThemeIndex = pos
+                selectedThemeIndex = pos + 1
 
                 val viewHolder = rvThemes.findViewHolderForAdapterPosition(pos)
                 val rl1 = viewHolder?.itemView?.findViewById<RelativeLayout>(R.id.rl1)
