@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,10 +44,10 @@ class WriteFragment : Fragment() {
 
         // selectedThemeIndex에 따라 배경 이미지 변경 (후에 디자인이 추가된 테마가 만들어진다면 변경하면 됨)
         val backgroundDrawable = when (selectedThemeIndex) {
-            0 -> R.drawable.theme_background_blue
-            1 -> R.drawable.theme_background_green
-            2 -> R.drawable.theme_background_yellow
-            3 -> R.drawable.theme_background_red
+            1 -> R.drawable.theme_background_blue
+            2 -> R.drawable.theme_background_green
+            3 -> R.drawable.theme_background_yellow
+            4 -> R.drawable.theme_background_red
             else -> R.drawable.theme_background_white
         }
 
@@ -73,6 +74,8 @@ class WriteFragment : Fragment() {
                     "date" to "$year-$formattedMonth-$date"
                 )
 
+                Log.d("API diaryData", diaryData.toString())
+
                 val filePath = imagePath?.let { getPathFromUri(requireContext(), it) }
                 val file = File(filePath ?: "")
 
@@ -90,6 +93,8 @@ class WriteFragment : Fragment() {
                     "theme" to selectedThemeIndex.toString(),
                     "date" to "$year-$formattedMonth-$date"
                 )
+
+                Log.d("API diaryData", diaryData.toString())
 
                 val filePath = imagePath?.let { getPathFromUri(requireContext(), it) }
                 val file = File(filePath ?: "")
