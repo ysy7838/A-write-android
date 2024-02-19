@@ -95,6 +95,7 @@ class WriteFragment : Fragment() {
                 val file = File(filePath ?: "")
 
                 context?.let {
+                    showLoading()
                     val diaryService = DiaryService(it)
                     diaryService.postDiary(diaryData, file)
                 }
@@ -156,15 +157,7 @@ class WriteFragment : Fragment() {
 
     //Loading화면 닫기. onActivityResult에서 request정리하시는 것 같은데
     //onResponse 나 onFailure, 두 상황 모두에 이 함수가 들어가야합니다.
-    private fun hideLoading() {
-        val fragmentManager = (context as WriteActivity).supportFragmentManager
-        val loadingFragment = fragmentManager.findFragmentByTag("LOADING_FRAGMENT")
-        if (loadingFragment != null) {
-            fragmentManager.beginTransaction()
-                .remove(loadingFragment)
-                .commitAllowingStateLoss()
-        }
-    }
+
 }
 
 

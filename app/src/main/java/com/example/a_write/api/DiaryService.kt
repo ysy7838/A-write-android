@@ -1,7 +1,10 @@
 package com.example.a_write.api
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import com.example.a_write.MainActivity
+import com.example.a_write.WriteActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -106,12 +109,27 @@ class DiaryService(private val context: Context) {
         diaryService.postDiary(titleRequestBody, contentRequestBody, imagePart, secretRequestBody, themeRequestBody, dateRequestBody).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 Log.d("API postDiary", "Code: ${response.code()}")
+                hideLoading()
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.d("API postDiary ERROR", "$t")
+                hideLoading()
             }
         })
+    }
+
+    private fun hideLoading() {
+        val fragmentManager = (context as WriteActivity).supportFragmentManager
+        val loadingFragment = fragmentManager.findFragmentByTag("LOADING_FRAGMENT")
+        if (loadingFragment != null) {
+            fragmentManager.beginTransaction()
+                .remove(loadingFragment)
+                .commitAllowingStateLoss()
+        }
+
+        val intent = Intent(context, MainActivity::class.java)
+        context.startActivity(intent)
     }
 
 }
