@@ -31,7 +31,7 @@
 ## 📚 Tech Stack
 ---
 
-| Atchitecture | MVP |
+| Architecture | MVP |
 | --- | --- |
 | Jetpack Components | Lifecycle, Data Binding |
 | Network | Retrofit2, OkHttp |
